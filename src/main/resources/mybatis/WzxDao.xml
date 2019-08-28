@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jk.dao.WzxDao">
+
+    <select id="findUser" resultType="com.jk.pojo.WzxUserBean" parameterType="com.jk.pojo.WzxUserBean">
+            select wu.* from wzx_user wu
+            <include refid="UserWhere"></include>
+    </select>
+    <sql id="UserWhere">
+        <where>
+        <if test="mobile!=null and  mobile!=''">
+            and wu.mobile like '%${mobile}%'
+        </if>
+        </where>
+    </sql>
+<insert id="saveUser" parameterType="com.jk.pojo.WzxUserBean">
+    INSERT INTO WZX_user (gmt_create,gmt_modified,status_id,sort,user_no,mobile,real_name,remark) VALUES (sysdate(),sysdate(),1,1,2018033111202589416,#{mobile},#{real_name},#{remark})
+
+</insert>
+    <update id="updUser" parameterType="com.jk.pojo.WzxUserBean">
+        update WZX_user set gmt_modified=sysdate(), mobile=#{mobile},real_name=#{real_name},status_id=#{status_id},remark=#{remark} where id=#{id}
+    </update>
+    <!-- 角色-->
+    <select id="findRole" parameterType="com.jk.pojo.WzxRoleBean" resultType="com.jk.pojo.WzxRoleBean">
+        select * from wzx_role wr
+        <include refid="RoleWhere"></include>
+    </select>
+    <sql id="RoleWhere">
+        <where>
+            <if test="role_name!=null and  role_name!=''">
+                and wr.role_name like '%${role_name}%'
+            </if>
+
+        </where>
+        order by sort
+    </sql>
+    <insert id="saveRole" parameterType="com.jk.pojo.WzxRoleBean">
+        insert into wzx_role(gmt_create,gmt_modified,status_id,sort,role_name,remark)values(sysdate(),sysdate(),1,1,#{role_name},#{remark})
+    </insert>
+    <update id="updRole" parameterType="com.jk.pojo.WzxRoleBean">
+ update wzx_role set gmt_modified=sysdate(),role_name=#{role_name},remark=#{remark},sort=#{sort},status_id=#{status_id} where id=#{id} </update>
+</mapper>

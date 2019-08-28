@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Insert title here</title>
+    <style type="text/css">
+        .myRow{
+            margin-bottom:5px
+        }
+    </style>
+</head>
+<body>
+<div class="container-fluid">
+    <form id="myForm">
+
+        <div class="row myRow">
+            <div class="col-md-4">
+                <label for="role_name">名称</label>
+            </div>
+            <div class="col-md-8">
+                <input type="text" class="form-control" id="role_name" name="role_name" placeholder="" >
+                <input type="hidden" class="form-control"  name="id" id="id" >
+            </div>
+        </div>
+        <div class="row myRow">
+            <div class="col-md-4">
+                <label>备注</label>
+            </div>
+            <div class="col-md-8">
+                <textarea class="form-control" id="remark"name="remark" rows=5 cols=20></textarea>
+            </div>
+        </div>
+        <div class="row myRow">
+            <div class="col-md-4">
+                <label for="role_name">排序</label>
+            </div>
+            <div class="input-group spinner col-md-8">
+                <div class="input-group spinner col-md-6">
+                <input type="text" class="form-control" id="sort" name="sort" >
+                        <div class="input-group spinner col-md-2">
+                        <button class="btn btn-default btn-xs" type="button" onclick="upOne()" ><span class="glyphicon glyphicon-menu-up"></span></button>
+                        <button class="btn btn-default btn-xs" type="button"  onclick="downOne()"><span class="glyphicon glyphicon-menu-down"></span></button>
+                        </div>
+                 </div>
+            </div>
+        </div>
+        <div class="row myRow">
+            <div class="col-md-4">
+                <label>状态</label>
+            </div>
+            <div class="radio col-md-8">
+                <label class="radio-inline">
+                    <input type="radio" name="status_id" id="1" value="1"> 正常
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" name="status_id" id="0" value="0" > 禁用
+                </label>
+            </div>
+        </div>
+    </form>
+</div>
+</body>
+<script type="text/javascript">
+function upOne(){
+    var stock = $("#sort").val();
+
+    stock = Number(stock)+1;
+    $("#sort").val(stock);
+}
+function downOne(){
+    var stock = $("#sort").val();
+    if (stock>0) {
+        stock = Number(stock)-1;
+        $("#sort").val(stock);
+    }
+}
+</script>
+</html>
