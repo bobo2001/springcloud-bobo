@@ -4,10 +4,9 @@ import com.jk.pojo.WzxRoleBean;
 import com.jk.pojo.WzxTreeBean;
 import com.jk.pojo.WzxUserBean;
 import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
-import java.util.HashMap;
 import java.util.List;
 
 public interface WzxDao {
@@ -36,4 +35,10 @@ public interface WzxDao {
     WzxRoleBean findRoleById(Integer id);
 //角色修改
     void updRole(WzxRoleBean wzxRoleBean);
+//密码修改
+    @Update("update wzx_user set password =#{password} where account=#{account}")
+    void upPass(WzxUserBean wzxUserBean);
+//查询账号密码
+
+    List<WzxUserBean> findUserAccount(WzxUserBean wzxUserBean);
 }

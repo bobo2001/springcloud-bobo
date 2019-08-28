@@ -7,7 +7,6 @@ import com.jk.pojo.WzxUserBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
 import java.util.List;
 @Service
 public class WzxServiceImpl implements WzxService{
@@ -67,6 +66,16 @@ public class WzxServiceImpl implements WzxService{
     @Override
     public void updRole(WzxRoleBean wzxRoleBean) {
         wzxDao.updRole(wzxRoleBean);
+    }
+
+    @Override
+    public void upPass(WzxUserBean wzxUserBean) {
+        wzxDao.upPass(wzxUserBean);
+    }
+
+    @Override
+    public List<WzxUserBean> findUserAccount(WzxUserBean wzxUserBean) {
+        return wzxDao.findUserAccount(wzxUserBean);
     }
 
 

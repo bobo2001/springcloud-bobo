@@ -4,7 +4,6 @@ import com.jk.pojo.WzxRoleBean;
 import com.jk.pojo.WzxTreeBean;
 import com.jk.pojo.WzxUserBean;
 
-import java.util.HashMap;
 import java.util.List;
 
 public interface WzxService {
@@ -30,4 +29,8 @@ public interface WzxService {
     WzxRoleBean findRoleById(Integer id);
 //角色修改
     void updRole(WzxRoleBean wzxRoleBean);
+//修改密码
+    void upPass(WzxUserBean wzxUserBean);
+////查询账号密码
+    List<WzxUserBean> findUserAccount(WzxUserBean wzxUserBean);
 }

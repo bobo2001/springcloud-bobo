@@ -1,8 +1,8 @@
 package com.jk.service;
 
 import com.jk.dao.TreeDao;
-import com.jk.pojo.LoginUserBean;
 import com.jk.pojo.TreeBean;
+import com.jk.pojo.WzxUserBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,16 +24,16 @@ public class TreeServiceImpl implements TreeService {
     }
 
     @Override
-    public HashMap<String, Object> LoginUser(LoginUserBean userBean) {
+    public HashMap<String, Object> LoginUser(WzxUserBean wzxUserBean) {
         HashMap<String, Object> hashMap = new HashMap<>();
-        LoginUserBean user = treeDao.findAccount(userBean.getAccount());
+        WzxUserBean user = treeDao.findAccount(wzxUserBean.getAccount());
         if (user == null) {
             hashMap.put("code", 1);
             hashMap.put("msg", "账号错误！");
             return hashMap;
         }
         String passeword = user.getPassword();
-        String password = userBean.getPassword();
+        String password = wzxUserBean.getPassword();
         //  String md516 = Md5Util.getMd516(passeword);
         if (!passeword.equals(password)) {
             hashMap.put("code", 2);
@@ -47,8 +47,8 @@ public class TreeServiceImpl implements TreeService {
     }
 
     @Override
-    public void saveReg(LoginUserBean userBean) {
-        treeDao.saveReg(userBean);
+    public void saveReg(WzxUserBean wzxUserBean) {
+        treeDao.saveReg(wzxUserBean);
     }
 
 

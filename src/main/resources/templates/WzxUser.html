@@ -265,6 +265,12 @@ function searchUser(){
         return res;
     }
     function updpasw(){
+        //查询账号密码
+        $.ajax({
+            url:'../findUserAccount',
+            type:'post',
+            data:$("#myForm").serialize(),
+            success:function(data){
         bootbox.dialog({
             title:'修改密码',
             message: createAddContent("../page/toPassUp"),
@@ -276,18 +282,16 @@ function searchUser(){
                     "callback" : function() {
                         var pas1=document.getElementById("password1").value;
                         var pas2=document.getElementById("password2").value;
-                        alert(pas1)
-                        alert(pas2)
-                        if(pas2!=pas1){
+
+                        if(pas2 != pas1){
                             bootbox.confirm({
                                 size: "small",
                                 title: "提示",
                                 message: "两次密码不一致",
                             })
-
                         }
                         $.ajax({
-                            url:'../',
+                            url:'../upPass',
                             type:'post',
                             data:$("#myForm").serialize(),
                             success:function(data){
@@ -307,6 +311,9 @@ function searchUser(){
                 }
             }
 
+        });
+
+            }
         });
     }
 </script>

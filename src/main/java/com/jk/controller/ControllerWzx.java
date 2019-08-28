@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.HashMap;
 import java.util.List;
 
 @RestController
@@ -110,4 +109,21 @@ public class ControllerWzx {
 public WzxRoleBean findRoleById(Integer id) {
     return wzxService.findRoleById(id);
 }
+//查询要修改密码的账户  findUserAccount
+    @RequestMapping("findUserAccount")
+    public  List<WzxUserBean> findUserAccount(WzxUserBean wzxUserBean){
+        return wzxService.findUserAccount(wzxUserBean);
+    }
+    // 修改密码 upPass
+    @RequestMapping("upPass")
+    public Boolean upPass(WzxUserBean wzxUserBean){
+        try {
+            wzxService.upPass(wzxUserBean);
+            return true;
+        } catch (Exception e) {
+            // TODO: handle exception
+            e.printStackTrace();
+            return false;
+        }
+    }
 }

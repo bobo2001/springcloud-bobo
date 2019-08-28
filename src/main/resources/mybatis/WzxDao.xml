@@ -40,5 +40,11 @@
         insert into wzx_role(gmt_create,gmt_modified,status_id,sort,role_name,remark)values(sysdate(),sysdate(),1,1,#{role_name},#{remark})
     </insert>
     <update id="updRole" parameterType="com.jk.pojo.WzxRoleBean">
- update wzx_role set gmt_modified=sysdate(),role_name=#{role_name},remark=#{remark},sort=#{sort},status_id=#{status_id} where id=#{id} </update>
+ update wzx_role set gmt_modified=sysdate(),role_name=#{role_name},remark=#{remark},sort=#{sort},status_id=#{status_id} where id=#{id}
+  </update>
+    <!--查询账号密码-->
+    <select id="findUserAccount" parameterType="com.jk.pojo.WzxRoleBean" resultType="com.jk.pojo.WzxRoleBean">
+        select * from wzx_user wu
+
+    </select>
 </mapper>

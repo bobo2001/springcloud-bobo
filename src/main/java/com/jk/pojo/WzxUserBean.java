@@ -25,8 +25,27 @@ public class WzxUserBean implements Serializable {
     private String remark;
    private Integer page;
    private Integer rows;
+   private String account;
+   private String password;
+
     public static long getSerialVersionUID() {
         return serialVersionUID;
+    }
+
+    public String getAccount() {
+        return account;
+    }
+
+    public void setAccount(String account) {
+        this.account = account;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public Integer getId() {
@@ -131,6 +150,8 @@ public class WzxUserBean implements Serializable {
                 ", remark='" + remark + '\'' +
                 ", page=" + page +
                 ", rows=" + rows +
+                ", account='" + account + '\'' +
+                ", password='" + password + '\'' +
                 '}';
     }
 }

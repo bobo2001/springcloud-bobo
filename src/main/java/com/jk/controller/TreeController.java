@@ -1,7 +1,7 @@
 package com.jk.controller;
 
-import com.jk.pojo.LoginUserBean;
 import com.jk.pojo.TreeBean;
+import com.jk.pojo.WzxUserBean;
 import com.jk.service.TreeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,14 +25,14 @@ public class TreeController {
     }
 
     @RequestMapping("login")
-    public HashMap<String,Object> loginUser(LoginUserBean userBean) {
-        return treeService.LoginUser(userBean);
+    public HashMap<String,Object> loginUser(WzxUserBean wzxUserBean) {
+        return treeService.LoginUser(wzxUserBean);
     }
 
     @RequestMapping("saveReg")
-    public boolean saveReg(LoginUserBean userBean) {
+    public boolean saveReg(WzxUserBean wzxUserBean) {
         try {
-            treeService.saveReg(userBean);
+            treeService.saveReg(wzxUserBean);
             return true;
         } catch (Exception e) {
             e.printStackTrace();
