@@ -10,6 +10,11 @@ public class PageControllerWzx {
     public  String  toMain(){
         return "Wzxmain";
     }
+    //修改密码
+    @RequestMapping("toPassUp")
+    public  String  toPassUp(){
+        return "WzxPassUp";
+    }
     //用户管理页面
     @RequestMapping("user")
     public  String  toUser(){

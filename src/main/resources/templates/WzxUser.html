@@ -252,7 +252,61 @@ function searchUser(){
     function updrole(id){
         alert("修改角色"+id);
     }
-    function updpasw(id){
-        alert("修改密码"+id);
+    //修改密码
+    var res;
+    function createAddContent(url){
+        $.ajax({
+            url:url,
+            async:false,//同步
+            success:function(data){
+                res = data;
+            }
+        });
+        return res;
+    }
+    function updpasw(){
+        bootbox.dialog({
+            title:'修改密码',
+            message: createAddContent("../page/toPassUp"),
+            closeButton: true,//是否显示关闭按钮
+            buttons : {
+                "success" : {
+                    "label" : "<i class='icon-ok'></i> 保存",
+                    "className" : "btn-sm btn-success",
+                    "callback" : function() {
+                        var pas1=document.getElementById("password1").value;
+                        var pas2=document.getElementById("password2").value;
+                        alert(pas1)
+                        alert(pas2)
+                        if(pas2!=pas1){
+                            bootbox.confirm({
+                                size: "small",
+                                title: "提示",
+                                message: "两次密码不一致",
+                            })
+
+                        }
+                        $.ajax({
+                            url:'../',
+                            type:'post',
+                            data:$("#myForm").serialize(),
+                            success:function(data){
+                                //刷新表格
+                                //$('#myTable').bootstrapTable('refresh');
+                                location.href="../login.html";
+                            }
+                        });
+                    }
+                },
+                "cancel" : {
+                    "label" : "<i class='icon-info'></i> 取消",
+                    "className" : "btn-sm btn-danger",
+                    "callback" : function() {
+
+                    }
+                }
+            }
+
+        });
     }
 </script>
