@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+
+    <style type="text/css">
+        .myRow{
+            margin-bottom:5px
+        }
+    </style>
+
+</head>
+<body>
+
+<div class="container-fluid">
+    <form id="myForm">
+        <div class="row myRow">
+            <div class="col-md-2">
+                <label for="name">课程名称</label>
+            </div>
+            <div class="col-md-4">
+                <input type="text" class="form-control" id="name" name="name" placeholder="请输入名称">
+                <input type="hidden" class="form-control" id="id" name="id" placeholder="请输入名称">
+            </div>
+        </div>
+        <div class="row myRow">
+            <div class="col-md-2">
+                <label for="price">原价</label>
+            </div>
+            <div class="col-md-4">
+                <input type="text" class="form-control" id="price" name="price" placeholder="请输入价格">
+            </div>
+        </div>
+        <div class="row myRow">
+            <div class="col-md-2">
+                <label for="sort">排序</label>
+            </div>
+            <div class="col-md-4">
+                <input type="text" class="form-control" id="sort" name="sort" placeholder="请输入排序">
+            </div>
+        </div>
+        <div class="row myRow">
+            <div class="col-md-2">
+                <label>是否收费</label>
+            </div>
+            <div class="col-md-4">
+                <input type="radio"  name="charge" value="免费">免费
+                <input type="radio"  name="charge" value="收费">收费
+        </div>
+        </div>
+        <div class="row myRow">
+            <div class="col-md-2">
+                <label for="content">简介</label>
+            </div>
+            <div class="col-md-4">
+              <!--  <textarea id="hideDetail" rows="" cols="" style="display:none" name="detail"></textarea>
+                <textarea id="content" rows="" cols=""  ></textarea>-->
+                <textarea class="form-control" rows="4" cols="19" id="detail" name="detail" placeholder="请输入详细描述"></textarea>
+            </div>
+        </div>
+        <!--<div class="row myRow">
+            <div class="col-md-2">
+                <label>课程封面</label>
+            </div>
+            <div class="col-md-10">
+                <input type="text" id="testimg" name="img" />
+                &lt;!&ndash; projectfile &ndash;&gt;
+                <input type="file" multiple class="projectfile" accept="image/*" name="img" id="userImg">
+            </div>
+        </div>-->
+    </form>
+</div>
+
+
+</body>
+
+<script type="text/javascript">
+
+
+</script>
+</html>

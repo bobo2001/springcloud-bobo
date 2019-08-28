@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <link rel="stylesheet" href="/bootstrap/bootstrap-datetimepicker/css/bootstrap-datetimepicker.css">
+    <link rel="stylesheet" href="/bootstrap/bootstrap3/css/bootstrap.css">
+    <link rel="stylesheet" href="/bootstrap/bootstrap-table/bootstrap-table.css">
+    <link rel="stylesheet" href="/bootstrap/bootstrap-fileinput/css/fileinput.css">
+    <link rel="stylesheet" href="/bootstrap/bootstrap-treeview/bootstrap-treeview.min.css">
+    <link rel="stylesheet" href="/bootstrap/bootStrap-addTabs/bootstrap.addtabs.css">
+    <script src="/bootstrap/easyui1.5/jquery.min.js"></script>
+    <script src="/bootstrap/bootstrap3/js/bootstrap.js"></script>
+    <script src="/bootstrap/bootstrap-table/bootstrap-table.js"></script>
+    <script src="/bootstrap/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
+    <script src="/bootstrap/bootbox/bootbox.all.min.js"></script>
+    <script src="/bootstrap/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js"></script>
+    <script src="/bootstrap/bootstrap-datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js"></script>
+    <script src="/bootstrap/bootstrap-fileinput/js/fileinput.js"></script>
+    <script src="/bootstrap/bootstrap-fileinput/js/locales/zh.js"></script>
+    <script src="/bootstrap/bootstrap-treeview/bootstrap-treeview.min.js"></script>
+    <script src="/bootstrap/bootStrap-addTabs/bootstrap.addtabs.min.js"></script>
+
+
+
+</head>
+<body>
+    <table class="table" id="myTable"></table>
+</body>
+
+<script type="text/javascript">
+
+    $(function(){
+        initMyTable();//初始化表格
+    })
+    
+    //初始化表格
+    function initMyTable(){
+        //alert(1111)
+        $('#myTable').bootstrapTable({
+            toolbar:"#toolbar",
+            url:'../findCourse',
+            pagination:true, //是否展示分页
+            pageList:[4,6,50],//分页组件
+            pageNumber:1,
+            pageSize:4,//默认每页条数
+            sidePagination:'client',//分页方式：client客户端分页，server服务端分页（*
+            striped:true,//斑马线
+            columns:[
+                {field:'abc',checkbox:true},
+                {field:'id',title:'序号'},
+                {field:'name',title:'课程名称',formatter:function(value,row,index){
+                    return '<a href="javascript:www('+row.id+')">'+value+'</a> <br> <a href="javascript:fff('+row.id+')"><font color="black">讲师:【</font>领课<font color="black">】</font></a>';
+                }},
+                {field:'type',title:'课程分类'},
+                {field:'charge',title:'是否收费',formatter:function(value,row,index){
+                        var charge = "";
+                        if(row.charge == 1){
+                            charge = "免费";
+                        }
+                        if(row.charge == 0){
+                            charge = "<font color='green'>收费</font>";
+                        }
+                        return charge;
+                }},
+                {field:'price',title:'原价'},
+                {field:'standordown',title:'上下架',formatter:function(value,row,index){
+                        var standordown = "";
+                        if(row.standordown == 1){
+                            standordown = "上架";
+                        }
+                        if(row.standordown == 0){
+                            standordown = "<font color='red'>下架</font>";
+                        }
+                        return standordown;
+                }},
+                {field:'status',title:'状态',formatter:function(value,row,index){
+                        var status = "";
+                        if(row.status == 1){
+                            status = "正常";
+                        }
+                        if(row.status == 0){
+                            status = "停课";
+                        }
+                        return status
+                }},
+                {field:'sort',title:'排序'},
+                /*{field:'img',title:'课程封面',formatter:function(value,row,index){
+                        return "<img src='"+value+"' width='50px' height='50px'/>";
+                }},*/
+                {field:'wj1f',title:'操作',formatter:function(value,row,index){
+                    return '<a href="javascript:edit('+row.id+')">修改</a>';
+                }}
+            ]
+        })
+    }
+
+    //领课
+    function fff(id) {
+        bootbox.dialog({
+            title:'领课',
+            message: createAddContent("../wjf/towjflingke"),
+            closeButton: true,//是否显示关闭按钮
+            buttons : {
+                /*"success" : {
+                    "label" : "<i class='icon-ok'></i> 保存",
+                    "className" : "btn-sm btn-success",
+                    "callback" : function() {
+                        $.ajax({
+                            url:'../addCourse',
+                            type:'post',
+                            data:$("#myForm").serialize(),
+                            success:function(data){
+                                //刷新表格
+                                $('#myTable').bootstrapTable('refresh');
+                                //searchUser();
+                            }
+                        });
+                    }
+                },*/
+                "cancel" : {
+                    "label" : "<i class='icon-info'></i> 取消",
+                    "className" : "btn-sm btn-danger",
+                    "callback" : function() {
+                    }
+                }
+            }
+        });
+        //回显数据
+        $.ajax({
+            url:'../lingke',
+            type:'post',
+            data:{id:id},
+            success:function(data){
+                //alert(data.name);
+                //initgrade();
+                //initschool();
+                $("#id").val(data.id);
+                $("#name").val(data.name);
+                $("#number").val(data.number);
+                $("#store").val(data.store);
+                $("#status").val(data.status);
+                $("#detail").val(data.detail);
+                $("#datetime").val(data.datetime);
+                $("#job").val(data.job);
+                /*$(":input[name='charge']").each(function(){
+                    var charge = $(this).val();
+                    if(charge == data.charge){
+                        $(this).prop("checked",true);
+                    }
+                })*/
+
+            }
+        })
+    }
+
+    //name链接
+    function www(id) {
+        //location.href = "/wjf/towjfupdcourse";
+        bootbox.dialog({
+            title:'修改课程',
+            message: createAddContent("../wjf/tonamelist"),
+            closeButton: true,//是否显示关闭按钮
+            buttons : {
+                /*"success" : {
+                    "label" : "<i class='icon-ok'></i> 保存",
+                    "className" : "btn-sm btn-success",
+                    "callback" : function() {
+                        $.ajax({
+                            url:'../addCourse',
+                            type:'post',
+                            data:$("#myForm").serialize(),
+                            success:function(data){
+                                //刷新表格
+                                $('#myTable').bootstrapTable('refresh');
+                                //searchUser();
+                            }
+                        });
+                    }
+                },*/
+                "cancel" : {
+                    "label" : "<i class='icon-info'></i> 取消",
+                    "className" : "btn-sm btn-danger",
+                    "callback" : function() {
+                    }
+                }
+            }
+        });
+        //回显数据
+        $.ajax({
+            url:'../findCourseById',
+            type:'post',
+            data:{id:id},
+            success:function(data){
+                //alert(data.name);
+                //initgrade();
+                //initschool();
+                $("#id").val(data.id);
+                $("#name").val(data.name);
+                $("#price").val(data.price);
+                $("#sort").val(data.sort);
+                //$("#charge").val(data.charge);
+                $("#detail").val(data.detail);
+                $(":input[name='charge']").each(function(){
+                    var charge = $(this).val();
+                    if(charge == data.charge){
+                        $(this).prop("checked",true);
+                    }
+                })
+
+            }
+        })
+    }
+
+
+    var res;
+    function createAddContent(url){
+        $.ajax({
+            url:url,
+            async:false,//同步
+            success:function(data){
+                res = data;
+            }
+        });
+        return res;
+    }
+
+    //打开修改弹框
+    function edit(id){
+        bootbox.dialog({
+            title:'修改课程',
+            message: createAddContent("../wjf/towjfupdcourse"),
+            closeButton: true,//是否显示关闭按钮
+            buttons : {
+                "success" : {
+                    "label" : "<i class='icon-ok'></i> 保存",
+                    "className" : "btn-sm btn-success",
+                    "callback" : function() {
+                        $.ajax({
+                            url:'../addCourse',
+                            type:'post',
+                            data:$("#myForm").serialize(),
+                            success:function(data){
+                                //刷新表格
+                                $('#myTable').bootstrapTable('refresh');
+                                //searchUser();
+                            }
+                        });
+                    }
+                },
+                "cancel" : {
+                    "label" : "<i class='icon-info'></i> 取消",
+                    "className" : "btn-sm btn-danger",
+                    "callback" : function() {
+                    }
+                }
+            }
+        });
+        //回显数据
+        $.ajax({
+            url:'../findCourseById',
+            type:'post',
+            data:{id:id},
+            success:function(data){
+                alert(data.name);
+                //initgrade();
+                //initschool();
+                $("#id").val(data.id);
+                $("#name").val(data.name);
+                $("#price").val(data.price);
+                $("#sort").val(data.sort);
+                //$("#charge").val(data.charge);
+                $("#detail").val(data.detail);
+                $(":input[name='charge']").each(function(){
+                    var charge = $(this).val();
+                    if(charge == data.charge){
+                        $(this).prop("checked",true);
+                    }
+                })
+            }
+        })
+    }
+
+
+    //上传图片
+   /* function uploadImg(){
+        $('#userImg').fileinput({
+            /!*initialPreview:url,
+            //初始化图片配置：
+            initialPreviewConfig: [
+                {key: 1, showDelete: false}
+            ],*!/
+            //是否初始化图片显示
+            initialPreviewAsData: true,
+            language: 'zh', //设置语言
+            uploadUrl: '../uploadImg', //上传的地址
+            allowedFileExtensions: ['jpg', 'gif', 'png'],//接收的文件后缀
+            showUpload: true, //是否显示上传按钮
+            showCaption: false,//是否显示标题
+            browseClass: "btn btn-primary", //按钮样式
+            //dropZoneEnabled: false,//是否显示拖拽区域
+            //minImageWidth: 50, //图片的最小宽度
+            //minImageHeight: 50,//图片的最小高度
+            //maxImageWidth: 1000,//图片的最大宽度
+            //maxImageHeight: 1000,//图片的最大高度
+            //maxFileSize: 0,//单位为kb，如果为0表示不限制文件大小
+            //minFileCount: 0,
+            maxFileCount: 2, //表示允许同时上传的最大文件个数
+            enctype: 'multipart/form-data',
+            validateInitialCount:true,
+            previewFileIcon: "<i class='glyphicon glyphicon-king'></i>",
+            msgFilesTooMany: "选择上传的文件数量({n}) 超过允许的最大数值{m}！",
+
+        }).on('fileuploaded', function(event, data, previewId, index) {
+            var imgval = $('#testimg').val();
+            //if(imgval == null || imgval == "" || imgval == undefined){
+            imgval = "http://<%= request.getServerName()%>:<%=request.getServerPort()%><%=request.getContextPath()%>/"+data.response;
+            //}else{
+            //	imgval += ","+"http://<%= request.getServerName()%>:<%=request.getServerPort()%><%=request.getContextPath()%>/"+data.response;
+            //}
+            $('#testimg').val(imgval);
+        });
+    }*/
+
+</script>
+</html>

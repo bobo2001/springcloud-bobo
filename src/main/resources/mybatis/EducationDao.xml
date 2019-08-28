@@ -1,0 +1,12 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jk.dao.EducationDao">
+
+    <select id="findCourse" resultType="com.jk.pojo.WjfCourseBean">
+        select * from wjf_course
+    </select>
+
+    <select id="findAudit" resultType="com.jk.pojo.WjfAuditBean">
+        select * from wjf_audit
+    </select>
+
+</mapper>
