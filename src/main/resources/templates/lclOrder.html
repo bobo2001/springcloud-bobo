@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/bootstrap/bootstrap-datetimepicker/css/bootstrap-datetimepicker.css">
+    <link rel="stylesheet" href="/bootstrap/bootstrap3/css/bootstrap.css">
+    <link rel="stylesheet" href="/bootstrap/bootstrap-table/bootstrap-table.css">
+    <link rel="stylesheet" href="/bootstrap/bootstrap-fileinput/css/fileinput.css">
+    <link rel="stylesheet" href="/bootstrap/bootstrap-treeview/bootstrap-treeview.min.css">
+    <link rel="stylesheet" href="/bootstrap/bootStrap-addTabs/bootstrap.addtabs.css">
+    <script src="/bootstrap/easyui1.5/jquery.min.js"></script>
+    <script src="/bootstrap/bootstrap3/js/bootstrap.js"></script>
+    <script src="/bootstrap/bootstrap-table/bootstrap-table.js"></script>
+    <script src="/bootstrap/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
+    <script src="/bootstrap/bootbox/bootbox.all.min.js"></script>
+    <script src="/bootstrap/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js"></script>
+    <script src="/bootstrap/bootstrap-datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js"></script>
+    <script src="/bootstrap/bootstrap-fileinput/js/fileinput.js"></script>
+    <script src="/bootstrap/bootstrap-fileinput/js/locales/zh.js"></script>
+    <script src="/bootstrap/bootstrap-treeview/bootstrap-treeview.min.js"></script>
+    <script src="/bootstrap/bootStrap-addTabs/bootstrap.addtabs.min.js"></script>
+</head>
+<body>
+<div id="toolbar">
+    <form class="form-inline">
+        <table>
+            <tr>
+                <td>状态</td>
+                <td>
+                    <select type="text" class="form-control "  id="orderStatusId">
+                        <option  value="-1">全部</option>
+                        <option  value="1">待支付</option>
+                        <option  value="2">支付成功</option>
+                        <option  value="3">支付失败</option>
+                        <option  value="4">交易关闭</option>
+                    </select>
+                </td>
+                <td>购买渠道</td>
+                <td>
+                    <select type="text" class="form-control "  id="buyTypeId">
+                        <option value="-1">全部</option>
+                        <option value="1">pc端</option>
+                        <option value="2">手机端</option>
+                    </select>
+                </td>
+                <td>支付方式</td>
+                <td>
+                    <select type="text" class="form-control "  id="payTypId">
+                        <option value="-1">全部</option>
+                        <option value="1">微信支付</option>
+                        <option value="2">支付宝支付</option>
+
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>课程名称</td>
+                <td>
+                    <input type="text" id="courseInfoId"  class="form-control"> </td>
+
+                <td>手机号码</td>
+                <td>
+                    <input type="text" id="phone"  class="form-control"> </td>
+                </td>
+                <td>平台讲师</td>
+                <td>
+                    <input type="text" id="teacherInfoId"  class="form-control"> </td>
+                </td>
+            </tr>
+
+            <tr>
+                <td>订单编号</td>
+                <td>
+                    <input type="text" id="orderNumberId"  class="form-control"> </td>
+
+                <td>后台备注</td>
+                <td>
+                    <input type="text" id="beizhu"  class="form-control"> </td>
+                </td>
+                <td>时间</td>
+                <td>
+                    <input type="date" class="form-control date"  id="startTime">
+                    -
+                    <input type="date" class="form-control date"  id="endTime">
+                </td>
+
+            </tr>
+
+            <tr>
+            <td >
+                <button  onclick="searchOrder()"  type="button" class="btn  btn-info"><span class="glyphicon glyphicon-search">搜索</span></button>
+                <button type="button" onclick="clearss()" class="btn btn-warning ">清空查询</button>
+            </td>
+            </tr>
+        </table>
+    </form>
+
+</div>
+<table class="table" id="myTable"></table>
+</body>
+<script   type="text/javascript">
+ $(function(){
+     initOrder();
+ })
+ //清空查询
+ function clearss(){
+     $("#orderStatusId").val("-1");
+     $("#buyTypeId").val("-1");
+     $("#payTypId").val("-1");
+     $("#courseInfoId").val("");
+     $("#teacherInfoId").val("");
+     $("#orderNumberId").val("");
+     $("#startTime").val("");
+     $("#endTime").val("");
+ }
+ //条查
+ function    searchOrder(){
+     var  orderStatusId =$("#orderStatusId").val()
+     var  buyTypeId =$("#buyTypeId").val()
+     var  payTypId =$("#payTypId").val()
+     var  courseInfoId =$("#courseInfoId").val()
+     var  teacherInfoId =$("#teacherInfoId").val()
+     var  orderNumberId =$("#orderNumberId").val()
+     var  startTime =$("#startTime").val()
+     var  endTime =$("#endTime").val()
+     $("#myTable").bootstrapTable('refresh',{
+         query:{
+             orderStatus:orderStatusId,
+             buyType:buyTypeId,
+             payType:payTypId,
+             courseInfo:courseInfoId,
+             teacherInfo:teacherInfoId,
+             orderNumber:orderNumberId,
+             startTime:startTime,
+             endTime:endTime,
+         }
+
+     })
+ }
+
+ function initOrder(){
+     $("#myTable").bootstrapTable({
+         url:'/order/findOrder',
+         toolbar:'#toolbar',
+         method:'post',
+         contentType: 'application/x-www-form-urlencoded',//posti求按照表单方式
+         pagination:true,
+         showRefresh:true,
+         pageNumber:1,
+         pageSize:2,
+         pageList:[2,5,10,20],
+         sidePagination:'server',//分页方式：client客户端分页，server服务端分页（*
+         striped:true,//是否显示斑马线
+         queryParams:function(){
+             return {
+                 page:this.pageNumber,
+                 rows:this.pageSize
+             };
+         },
+         columns:[
+             {field:"abc",checkbox:true},
+             {field:"id",title:"主键id",width:150},
+             {field:"orderNumber",title:"订单号",width:150},
+             {field:"courseInfo",title:"课程信息",width:150,formatter:function(value,row,index){
+                   return  '<a href="javascript:kecheng()">'+value+'</a></br><a href=\'javascript:mingxi("+row.id+")\'>[明细]</a>';
+                 }},
+             {field:"teacherInfo",title:"讲师信息",width:150,formatter:function(value,row,index){
+                     return  '<a href="javascript:jiangshi()">'+value+'</a></br><a href=\'javascript:mingxi("+row.id+")\'>[明细]</a>';
+             }},
+             {field:"userInfo",title:"用户信息",width:150,formatter:function(value,row,index){
+                     return  '<a href="javascript:yonghu()">'+value+'</a></br><a href=\'javascript:mingxi("+row.id+")\'>[明细]</a>';
+             }},
+             {field:"dealType",title:"交易类型",width:150,formatter:function(value,row,index){
+                     if(value==1){
+                         return "pc端"
+                     }else if(value==2){
+                         return "手机端"
+                     }
+                 }},
+             {field:"payType",title:"支付方式",width:150,formatter:function(value,row,index){
+                     return value == 1? "微信支付":"支付宝";
+                 }},
+             {field:"orderPrice",title:"支付金额",width:150,},
+             {field:"buyType",title:"购买渠道",width:150,formatter:function(value,row,index){
+                     return value == 1? "pc端购买":"手机端";
+             }},
+             {field:"orderStatus",title:"订单状态",width:150,formatter:function(value,row,index){
+                     if(value==1){
+                         return "待支付"
+                     }else if(value==2){
+                         return "支付成功"
+                     } else if(value==3){
+                         return "支付失败"
+                     }else{
+                         return "交易关闭"
+                     }
+                 }},
+             {field:"peopleRemarks",title:"客户备注",width:150},
+             {field:"payTime",title:"支付时间",width:150},
+             {field:"tool",title:"操作",formatter:function(value,row,index){
+              return  "<a href='javascript:updateCourse("+row.id+")'>备注</a>";
+
+                 }}
+         ]
+     })
+ }
+
+
+
+</script>
+</html>

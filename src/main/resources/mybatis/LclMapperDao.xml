@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper  namespace="com.jk.dao.LclMapper">
+ <select id="findOrderTotal" parameterType="com.jk.pojo.LclOrderBean" resultType="int">
+	  select   count(1)  from    lcl_order
+
+ </select>
+	<select id="findOrderPage"  resultType="com.jk.pojo.LclOrderBean">
+		SELECT
+	id,
+	orderNumber,
+	courseInfo,
+  teacherInfo,
+	userInfo,
+	dealType,
+	payType,
+	orderPrice,
+	buyType,
+	orderStatus,
+	peopleRemarks,
+	payTime
+FROM
+	lcl_order
+		<include refid="tiaocha"></include>
+	LIMIT #{start},#{rows}
+	</select>
+	<sql id="tiaocha">
+    <where>
+		<if test="lclOrderBean.orderStatus != null and lclOrderBean.orderStatus  != -1">
+			and   orderStatus=#{lclOrderBean.orderStatus}
+		</if>
+		<if test="lclOrderBean.buyType != null and lclOrderBean.buyType  != -1">
+			and   buyType=#{lclOrderBean.buyType}
+		</if>
+		<if test="lclOrderBean.payType != null and lclOrderBean.payType  != -1">
+			and   payType=#{lclOrderBean.payType}
+		</if>
+		<if test="lclOrderBean.courseInfo !=null and lclOrderBean.courseInfo != ''">
+			and courseInfo like '%${lclOrderBean.courseInfo}%'
+		</if>
+		<if test="lclOrderBean.teacherInfo !=null and lclOrderBean.teacherInfo != ''">
+			and teacherInfo like '%${lclOrderBean.teacherInfo}%'
+		</if>
+		<if test="lclOrderBean.orderNumber !=null ">
+			and orderNumber =#{lclOrderBean.orderNumber}
+		</if>
+		<if test="lclOrderBean.startTime != null and lclOrderBean.startTime != ''">
+			and payTime > date_format(#{lclOrderBean.startTime},'%Y-%m-%d %H:%i:%s')
+		</if>
+
+		<if test="lclOrderBean.endTime != null and lclOrderBean.endTime != ''">
+			and payTime &lt; date_format(#{lclOrderBean.endTime},'%Y-%m-%d %H:%i:%s')
+		</if>
+	</where>
+	</sql>
+
+
+</mapper>
