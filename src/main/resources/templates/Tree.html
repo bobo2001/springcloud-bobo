@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en"    xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/bootstrap/bootstrap-datetimepicker/css/bootstrap-datetimepicker.css">
+    <link rel="stylesheet" href="/bootstrap/bootstrap3/css/bootstrap.css">
+    <link rel="stylesheet" href="/bootstrap/bootstrap-table/bootstrap-table.css">
+    <link rel="stylesheet" href="/bootstrap/bootstrap-fileinput/css/fileinput.css">
+    <link rel="stylesheet" href="/bootstrap/bootstrap-treeview/bootstrap-treeview.min.css">
+    <link rel="stylesheet" href="/bootstrap/bootStrap-addTabs/bootstrap.addtabs.css">
+    <script src="/bootstrap/easyui1.5/jquery.min.js"></script>
+    <script src="/bootstrap/bootstrap3/js/bootstrap.js"></script>
+    <script src="/bootstrap/bootstrap-table/bootstrap-table.js"></script>
+    <script src="/bootstrap/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
+    <script src="/bootstrap/bootbox/bootbox.all.min.js"></script>
+    <script src="/bootstrap/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js"></script>
+    <script src="/bootstrap/bootstrap-datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js"></script>
+    <script src="/bootstrap/bootstrap-fileinput/js/fileinput.js"></script>
+    <script src="/bootstrap/bootstrap-fileinput/js/locales/zh.js"></script>
+    <script src="/bootstrap/bootstrap-treeview/bootstrap-treeview.min.js"></script>
+    <script src="/bootstrap/bootStrap-addTabs/bootstrap.addtabs.min.js"></script>
+
+</head>
+<style tyoe="text/css">
+    .div4{
+        position:fixed;
+        top:5px;
+        right:10px;
+
+    }
+    .dropdown-menu{
+        position:fixed;
+        top:25px;
+        left:1400px;
+        width:120px ;
+
+    }
+
+</style>
+<body>
+<nav class="navbar navbar-inverse navbar-static-top" role="navigation">
+    <div class="container-fluid">
+        <div  class="row">
+            <div class="navbar-header col-md-4">
+            <span class="bjui-navbar-logo" style="color: #fff3f3">
+             <h4>领课教育系统-开源版</h4>
+
+            </span>
+
+            </div>
+        </div>
+
+
+
+        <div id="container">
+            <div  class="div4">
+
+
+                <span class="bjui-navbar-logo" style="color: #fff3f3" id="cg"></span>
+                <a href="http://www.gaoxiaogif.com/d/file/85dd5680ca2ac37b716e420eba6c6088.gif" style="color: #fff3f3" data-toggle="navtab"> | 站点设置</a>
+                <a href="https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=3365058164,3002546571&fm=26&gp=0.jpg" style="color: #fff3f3" data-toggle="navtab"> | 系统设置</a>
+
+                <a href="#" class="dropdown-toggle" style="color: #fff3f3" data-toggle="dropdown"> | 我的账户
+
+                    <span class="caret"></span>
+
+                </a>
+
+
+
+                <ul class="dropdown-menu" role="menu" style="min-width:20px;">
+
+                    <li>
+                        <a href="#">
+                            <span class="glyphicon glyphicon-off" >
+                               登陆注销
+                          </span>
+
+                        </a>
+
+
+
+                    </li>
+
+
+                </ul>
+
+
+
+
+
+
+            </div>
+
+
+
+        </div>
+
+
+
+    </div>
+
+    <!--  <ul class="nav navbar-nav navbar-right">
+          <li><a href="http://www.lecshop.cn/"><span class="glyphicon glyphicon-user"></span>官方网站</a> |</li>
+          <li><a href="http://www.lecshop.cn/technology.html"><span class="glyphicon glyphicon-user"></span>技术构架</a> |</li>
+          <li> <a href="http://www.lecshop.cn/about.jsp"><span class="glyphicon glyphicon-user"></span>关于我们</a></li>
+          </li>
+      </ul>-->
+
+    <ul >
+        <li>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;
+            <button type="button" class="btn btn-default navbar-btn" onclick="initTree(1)" role="button">订单管理</button> <button type="button" class="btn btn-default navbar-btn" onclick="initTree1(2)" role="button">首页管理</button> <button type="button" class="btn btn-default navbar-btn"  onclick="initTree1(3)" role="button">课程管理</button> <button type="button" class="btn btn-default navbar-btn"  onclick="initTree1(4)" role="button">讲师管理</button> <button type="button" class="btn btn-default navbar-btn"  onclick="initTree1(6)" role="button">系统管理</button></li>
+    </ul>
+
+</nav>
+<div class="container-fluid" style="margin-top:60px">
+    <div class="row">
+
+        <div class="col-md-2">
+            <!--  导航树 -->
+            <div id="myTree"></div>
+        </div>
+        <div class="col-md-10">
+            <!-- 选项卡 -->
+            <div id="myTabs">
+                <!-- 新选项卡 -->
+                <ul class="nav nav-tabs" id="tablist">
+                    <li role="presentation" class="active">
+                        <a href="#home" role="tab" data-toggle="tab">欢迎</a>
+                    </li>
+                </ul>
+
+                <!-- 选项卡下内容 -->
+                <div class="tab-content">
+                    <div role="tabpanel" class="tab-pane active" id="home">
+                        欢迎登陆！
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+</div>
+</body>
+<script type="text/javascript" th:inline="none">
+    function shenhe(){
+
+
+
+    }
+    <!--这个cg就是span的id，初始化Date时间并转化为字符string类型,每1000毫秒，setInterval() 就会调用函数，直到被关闭。-->
+    setInterval("cg.innerHTML=new Date().toLocaleString()",1000);
+    $(function(){
+        initTree(1);//初始化树
+
+
+    })
+
+
+
+
+
+    function initTree(typeid){
+
+        $.ajax({
+            url:'/findTree',
+            data:{typeid:typeid},
+            dataType:'json',
+            type:'get',
+            success:function(data){
+
+                $('#myTree').treeview({
+
+                    data:data,
+                    onNodeSelected:function(event, node) {
+                        $.addtabs({iframeHeight: 550});
+                        $.addtabs.add({
+                            id:node.id,
+                            title:node.text,
+                            url:node.href
+                        });
+
+                    }
+                })
+
+
+
+
+
+            }
+        })
+    }
+
+    function initTree1(typeid){
+
+        $.ajax({
+            url:'/findTree',
+            data:{typeid:typeid},
+            dataType:'json',
+            type:'get',
+            success:function(data){
+
+                $('#myTree').treeview({
+
+                    data:data,
+                    onNodeSelected:function(event, node) {
+                        $.addtabs({iframeHeight: 550});
+                        $.addtabs.add({
+                            id:node.id,
+                            title:node.text,
+                            url:node.href
+                        });
+
+                    }
+                })
+
+
+
+
+
+            }
+        })
+    }
+
+</script>
+
+
+</html>

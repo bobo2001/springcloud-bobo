@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/bootstrap/bootstrap-datetimepicker/css/bootstrap-datetimepicker.css">
+    <link rel="stylesheet" href="/bootstrap/bootstrap3/css/bootstrap.css">
+    <link rel="stylesheet" href="/bootstrap/bootstrap-table/bootstrap-table.css">
+    <link rel="stylesheet" href="/bootstrap/bootstrap-fileinput/css/fileinput.css">
+    <link rel="stylesheet" href="/bootstrap/bootstrap-treeview/bootstrap-treeview.min.css">
+    <link rel="stylesheet" href="/bootstrap/bootStrap-addTabs/bootstrap.addtabs.css">
+    <script src="/bootstrap/easyui1.5/jquery.min.js"></script>
+    <script src="/bootstrap/bootstrap3/js/bootstrap.js"></script>
+    <script src="/bootstrap/bootstrap-table/bootstrap-table.js"></script>
+    <script src="/bootstrap/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
+    <script src="/bootstrap/bootbox/bootbox.all.min.js"></script>
+    <script src="/bootstrap/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js"></script>
+    <script src="/bootstrap/bootstrap-datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js"></script>
+    <script src="/bootstrap/bootstrap-fileinput/js/fileinput.js"></script>
+    <script src="/bootstrap/bootstrap-fileinput/js/locales/zh.js"></script>
+    <script src="/bootstrap/bootstrap-treeview/bootstrap-treeview.min.js"></script>
+    <script src="/bootstrap/bootStrap-addTabs/bootstrap.addtabs.min.js"></script>
+</head>
+<body>
+
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">注册成为新成员</h4>
+            </div>
+            <form id="regForm">
+                <div class="form-group">
+                    <label for="namea" class="col-sm-2 control-label">用户名</label>
+                    <div class="col-sm-9">
+                        <input type="text" id="namea" name="name" class="form-control well"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="accid" class="col-sm-2 control-label">账号</label>
+                    <div class="col-sm-9">
+                        <input type="text" id="accid" name="account" class="form-control well"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="pass" class="col-sm-2 control-label">密码</label>
+                    <div class="col-sm-9">
+                        <input type="hidden" id="hid" name="id">
+                        <input type="text" id="pass" name="password" class="form-control well"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="pass1" class="col-sm-2 control-label">确认密码</label>
+                    <div class="col-sm-9">
+                        <input type="text" id="pass1"  class="form-control well"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="phonid" class="col-sm-2 control-label">手机号</label>
+                    <div class="col-sm-9">
+                        <input type="text" id="phonid" name="phone" class="form-control well"/>
+                    </div>
+                </div>
+            </form>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary" onclick="reg()">注册</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+
+
+
+
+
+<div class="input-group"style="margin:0 auto";>
+    <img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1566915089994&di=e63242ebc2a8488f1e66296c5dedfbf5&imgtype=0&src=http%3A%2F%2Fimg.cndesign.com%2Fupload%2Fnews%2F20180408%2Fd5039b0992584fbf98b00da57e33b528.jpg" height="250px" width="350px">
+</div>
+<div style="padding: 0px 400px 10px;">
+
+    <div class="input-group input-group-lg">
+        <span class="input-group-addon">✚</span>
+        <input name="qyQuancheng" id="qyid" type="text" class="form-control" placeholder="请输入账号">
+    </div>
+    <div class="input-group input-group-lg">
+        <span class="input-group-addon">☁</span>
+        <input name="password" id="passid" type="text" class="form-control" placeholder="请输入密码">
+    </div>
+    <div>
+        <button  onclick="sub()"  class="btn btn-primary btn-lg btn-block">登录</button>
+        <button  class="btn btn-default btn-lg btn-block" data-toggle="modal" data-target="#myModal">注册</button>
+    </div>
+
+</div>
+
+</body>
+<script type="text/javascript">
+
+    function reg() {
+        var pas1=document.getElementById("pass").value;
+        var pas2=document.getElementById("pass1").value;
+        $.ajax({
+            url : '/saveReg',
+            type : 'post',
+            data : $("#regForm").serialize(),
+            //dataType : 'json',
+            success : function() {
+                if (pas1 != pas2) {
+                    alert("两次密码输入不一致！")
+                }else {
+                    alert("注册成功")
+                    $('#myModal').modal('hide')
+                    $('#myModal').on('hidden.bs.modal', function (e) {
+                        //第一种：form表单清空
+                        $("#regForm")[0].reset();
+                    });
+
+                }
+
+
+            }
+        })
+
+    }
+
+    function sub() {
+        var qyid = $("#qyid").val();
+        var passid = $("#passid").val();
+        $.ajax({
+            url:'/login',
+            type:"post",
+            data:{
+                account:qyid,
+                password:passid,
+            },
+            success:function(data) {
+                if (data.code == 0 ){
+                    alert(data.msg);
+                    location.href="/page/tree"
+                }else{
+                    alert(data.msg);
+                }
+            }
+        })
+    };
+
+
+</script>
+</html>
