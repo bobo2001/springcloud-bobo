@@ -16,7 +16,7 @@ public class ControllerWzx {
     @Autowired
     private WzxService wzxService;
 
-    @RequestMapping("findTree")
+    @RequestMapping("WzxfindTree")
     public List<WzxTreeBean> findTree() {
         return wzxService.findTree();
     }
