@@ -10,7 +10,7 @@ spring:
 #    mongodb:
 #      uri: mongodb://127.0.0.1:27017/1809a
 mybatis:
-  mapperLocations: classpath*:mybatis/*ShouYeDao.xml
+  mapperLocations: classpath*:mybatis/*Dao.xml
   ##*typeAliasesPackage: com.jk.bean
 
   aop:
