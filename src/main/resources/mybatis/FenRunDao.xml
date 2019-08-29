@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jk.dao.TeacherDao">
+    <!--讲师列表统计个数-->
+<select id="findLecturerCount" resultType="int" parameterType="com.jk.pojo.Lecturer">
+ select count(*) from t_lecturer
+ <include refid="lectSql"></include>
+</select>
+
+    <!--讲师列表-->
+<select id="findLecturerList" resultType="com.jk.pojo.Lecturer" >
+ select * from t_lecturer
+ <include refid="lectSql"></include>
+  limit #{page},#{rows}
+</select>
+
+    <!--分润列表统计个数-->
+    <select id="findFenRunCount" resultType="int" parameterType="com.jk.pojo.Fenrun" >
+     select count(*) from t_fenrun
+     <include refid="myFen"></include>
+    </select>
+
+    <!--分润列表-->
+    <select id="findFenRunList" resultType="com.jk.pojo.Fenrun">
+     select * from t_fenrun
+     <include refid="myFen"></include>
+     limit #{page},#{rows}
+    </select>
+
+    <sql id="lectSql">
+        <where>
+            <if test="lecturer.teacheName!=null and lecturer.teacheName!=''">
+                and teacheName = #{lecturer.teacheName}
+            </if>
+            <if test="lecturer.phone!=null and lecturer.phone!=''">
+                and phone = #{lecturer.phone}
+            </if>
+            <if test="lecturer.status!= -1 ">
+                and phone = #{lecturer.status}
+            </if>
+        </where>
+    </sql>
+    
+    <sql id="myFen">
+         <where>
+             <if test="fenrun.teacherName!=null and fenrun.teacherName!=''">
+                 and teacherName = #{fenrun.teacherName}
+             </if>
+             <if test="fenrun.status != -1">
+                 and status = #{fenrun.status}
+             </if>
+             <if test="fenrun.startTime != null and fenrun.startTime !=''">
+               and dateTime > #{fenrun.startTime}
+             </if>
+             <if test="fenrun.endTime != null and fenrun.endTime !=''">
+               and dateTime &lt; #{fenrun.endTime}
+             </if>
+
+         </where>
+    </sql>
+</mapper>

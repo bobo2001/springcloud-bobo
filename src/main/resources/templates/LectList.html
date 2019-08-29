@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!-- 引入 bootstrap的css-->
+    <link type="text/css" rel="stylesheet" href="/js1/bootstrap/bootstrap3/css/bootstrap.css">
+    <!-- 引入jquery js文件 -->
+    <script type="text/javascript" src="/js1/bootstrap/jquery-1.9.1.min.js"></script>
+    <!-- 引入bootstrap js文件 -->
+    <script type="text/javascript" src="/js/bootstrap/bootstrap3/js/bootstrap.js"></script>
+    <!-- 引入table -->
+    <link type="text/css" rel="stylesheet" href="/js1/bootstrap/bootstrap-table/bootstrap-table.css">
+    <script type="text/javascript" src="/js1/bootstrap/bootstrap-table/bootstrap-table.js"></script>
+    <link type="text/css" rel="stylesheet" href="/js1/bootstrap/bootStrap-addTabs/bootstrap.addtabs.css">
+    <script type="text/javascript" src="/js1/bootstrap/bootStrap-addTabs/bootstrap.addtabs.min.js"></script>
+
+    <link type="text/css" rel="stylesheet" href="/js1/bootstrap/bootstrap-datetimepicker/css/bootstrap-datetimepicker.css">
+    <script type="text/javascript" src="/js1/bootstrap/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js"></script>
+    <script type="text/javascript" src="/js1/bootstrap/bootstrap-datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js"></script>
+    <!-- 引入bootbox的js -->
+    <script type="text/javascript" src="/js1/bootstrap/bootstrap-bootbox/bootbox.js"></script>
+    <script type="text/javascript" src="/js1/bootstrap/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
+    <!-- 引入fileinput css、js -->
+    <link type="text/css" rel="stylesheet" href="/js1/bootstrap/bootstrap-fileinput/css/fileinput.css">
+    <script type="text/javascript" src="/js1/bootstrap/bootstrap-fileinput/js/fileinput.js"></script>
+    <script type="text/javascript" src="/js1/bootstrap/bootstrap-fileinput/js/locales/zh.js"></script>
+
+   <!-- <link rel="stylesheet" href="/bootstrap/bootstrap-datetimepicker/css/bootstrap-datetimepicker.css">
+    <link rel="stylesheet" href="/bootstrap/bootstrap3/css/bootstrap.css">
+    <link rel="stylesheet" href="/bootstrap/bootstrap-table/bootstrap-table.css">
+    <link rel="stylesheet" href="/bootstrap/bootstrap-fileinput/css/fileinput.css">
+    <link rel="stylesheet" href="/bootstrap/bootstrap-treeview/bootstrap-treeview.min.css">
+    <link rel="stylesheet" href="/bootstrap/bootStrap-addTabs/bootstrap.addtabs.css">
+    <script src="/bootstrap/easyui1.5/jquery.min.js"></script>
+    <script src="/bootstrap/bootstrap3/js/bootstrap.js"></script>
+    <script src="/bootstrap/bootstrap-table/bootstrap-table.js"></script>
+    <script src="/bootstrap/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
+    <script src="/bootstrap/bootbox/bootbox.all.min.js"></script>
+    <script src="/bootstrap/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js"></script>
+    <script src="/bootstrap/bootstrap-datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js"></script>
+    <script src="/bootstrap/bootstrap-fileinput/js/fileinput.js"></script>
+    <script src="/bootstrap/bootstrap-fileinput/js/locales/zh.js"></script>
+    <script src="/bootstrap/bootstrap-treeview/bootstrap-treeview.min.js"></script>
+    <script src="/bootstrap/bootStrap-addTabs/bootstrap.addtabs.min.js"></script>
+-->
+</head>
+<body>
+<div id="toolbar">
+    <form class="form-inline">
+        <div class="form-group">
+            <label>讲师名称：</label>
+            <input type="text" class="form-control" id="teacherName" placeholder="请输入讲师名称">
+        </div>
+        <div class="form-group">
+            <label>手机号：</label>
+            <input type="text" class="form-control" id="phone" placeholder="请输入手机号">
+        </div>
+        <div class="form-group">
+            <label>状态：</label>
+            <select  id="status" class="form-control">
+                <option value="-1">全部</option>
+                <option value="1">成功</option>
+                <option value="2">禁用</option>
+            </select>
+        </div>
+
+        <button type="button" onclick="searchAuditor()" class="btn btn-success glyphicon glyphicon-search">搜索</button>
+    </form>
+</div>
+<table id="MyTables" class="table"></table>
+</body>
+<script type="text/javascript" th:inline="none">
+    $(function(){
+        initLectTable();
+    })
+    /* var res;
+     function createAddContent(url){
+         $.ajax({
+             url:url,
+             async:false,//同步
+             success:function(data){
+                 res = data;
+             }
+         });
+         return res;
+     }
+     function  openAddActiv(){
+         bootbox.dialog({
+             title:'活动管理',//跳转新增页面的路径
+             message: createAddContent("/shool/toAddActiv"),
+             closeButton: true,//是否显示关闭按钮
+             buttons : {
+                 "success" : {
+                     "label" : "<i class='icon-ok'></i> 保存",
+                     "className" : "btn-sm btn-success",
+                     "callback" : function() {
+                         debugger
+                         $.ajax({
+                             url:'/shool/addActiv',
+                             type:'post',
+                             data:$("#myForm").serialize(),
+                             success:function(data){
+                                 //刷新表格
+                                 $('#myTables').bootstrapTable('refresh');
+
+                             }
+                         });
+                     }
+                 },
+                 "cancel" : {
+                     "label" : "<i class='icon-info'></i> 取消",
+                     "className" : "btn-sm btn-danger",
+                     "callback" : function() {
+
+                     }
+                 }
+             }
+
+         });
+     }
+
+     function updateAct(id) {
+         openAddActiv();
+         $.ajax({
+             url:'/shool/findActById',
+             data:{
+                 id:id
+             },
+             success:function(data){
+
+                 $("#id").val(data.id);
+                 $("#name").val(data.name);
+                 $("#startTime").val(data.startTime);
+                 $("#endTime").val(data.endTime);
+             }
+         })
+     }*/
+    //刷新表格
+    function searchAuditor(){
+        $('#MyTables').bootstrapTable('refresh');
+    }
+    function initLectTable() {
+        $('#MyTables').bootstrapTable({
+            toolbar:'#toolbar',//工具栏
+            url:'/teacher/findLecturer',//获取数据地址
+            pagination:true, //是否展示分页
+            pageList:[2, 4, 6, 50],//分页组件
+            pageNumber:1,
+            pageSize:2,//默认每页条数
+            sidePagination:'server',//分页方式：client客户端分页，server服务端分页（*
+            striped:true,//斑马线
+            queryParams:function(){
+                return {
+                    page: this.pageNumber,
+                    rows: this.pageSize,
+                    teacheName:$("#teacherName").val(),
+                    phone:$("#phone").val()
+                };
+            },
+            columns:[{field:"checkbox",checkbox:true},
+                {field:"id",title:"序号"},
+                {field:"phone",title:"手机号"},
+                {field:"teacheName",title:"讲师名称"},
+                {field:"email",title:"邮箱"},
+                {field:"status",title:"状态",formatter:function(value,row,index){
+                        if (value==1){
+                            return "正常";
+                        }else if (value==2){
+
+                            return "禁用";
+                        }
+                    }},
+                {field:"proportion",title:"分成比例"},
+
+                {field:"tool",title:"操作",formatter:function(value,row,index){
+                        return "<a href='javascript:updateAct("+row.id+")'>修改</a>   <a href='javascript:openUpdate("+row.id+")'>禁用</a> <a href='javascript:openUpdate("+row.id+")'>设置分成</a>";
+
+                    }}
+            ]
+        });
+    }
+
+</script>
+</html>
