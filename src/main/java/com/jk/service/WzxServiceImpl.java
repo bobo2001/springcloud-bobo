@@ -74,8 +74,8 @@ public class WzxServiceImpl implements WzxService{
     }
 
     @Override
-    public List<WzxUserBean> findUserAccount(WzxUserBean wzxUserBean) {
-        return wzxDao.findUserAccount(wzxUserBean);
+    public WzxUserBean findUserAccount(Integer id) {
+        return wzxDao.findUserAccount(id);
     }
 
 

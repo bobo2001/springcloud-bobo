@@ -40,5 +40,5 @@ public interface WzxDao {
     void upPass(WzxUserBean wzxUserBean);
 //查询账号密码
 
-    List<WzxUserBean> findUserAccount(WzxUserBean wzxUserBean);
+    WzxUserBean findUserAccount(Integer id);
 }

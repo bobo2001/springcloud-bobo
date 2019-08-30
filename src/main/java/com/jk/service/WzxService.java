@@ -32,5 +32,5 @@ public interface WzxService {
 //修改密码
     void upPass(WzxUserBean wzxUserBean);
 ////查询账号密码
-    List<WzxUserBean> findUserAccount(WzxUserBean wzxUserBean);
+    WzxUserBean findUserAccount(Integer id);
 }

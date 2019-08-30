@@ -111,8 +111,9 @@ public WzxRoleBean findRoleById(Integer id) {
 }
 //查询要修改密码的账户  findUserAccount
     @RequestMapping("findUserAccount")
-    public  List<WzxUserBean> findUserAccount(WzxUserBean wzxUserBean){
-        return wzxService.findUserAccount(wzxUserBean);
+    public  WzxUserBean findUserAccount(Integer id){
+        WzxUserBean userAccount = wzxService.findUserAccount(id);
+        return userAccount;
     }
     // 修改密码 upPass
     @RequestMapping("upPass")

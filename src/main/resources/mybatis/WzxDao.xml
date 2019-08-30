@@ -43,8 +43,8 @@
  update wzx_role set gmt_modified=sysdate(),role_name=#{role_name},remark=#{remark},sort=#{sort},status_id=#{status_id} where id=#{id}
   </update>
     <!--查询账号密码-->
-    <select id="findUserAccount" parameterType="com.jk.pojo.WzxRoleBean" resultType="com.jk.pojo.WzxRoleBean">
-        select * from wzx_user wu
+    <select id="findUserAccount" parameterType="int" resultType="com.jk.pojo.WzxUserBean">
+        select * from wzx_user wu where id=#{id}
 
     </select>
 </mapper>
