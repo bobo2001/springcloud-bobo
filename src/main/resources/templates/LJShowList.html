@@ -26,7 +26,7 @@
     <form class="form-inline">
         <div class="form-group">
             <label for="name">专区名称</label>
-            <input type="text" class="form-control" id= "name" placeholder="请输入名称">
+            <input type="text" class="form-control" id= "name1" placeholder="请输入名称">
         </div>
         <button type="button" onclick="searchUser()" class="btn btn-success glyphicon glyphicon-search">搜索</button>
         <button type="button" onclick="clearss()" class="btn btn-warning ">清空查询</button>
@@ -68,7 +68,7 @@
                         $.ajax({
                             url:'/zhuanqu/saveLianJie',
                             type:'post',
-                            data:$("#myForm").serialize(),
+                            data:$("#lianjieForm").serialize(),
                             success:function(data){
                                 //刷新表格
                                 $('#LianJieTable').bootstrapTable('refresh');
@@ -224,7 +224,7 @@
                         $.ajax({
                             url:'/zhuanqu/saveLianJie',
                             type:'post',
-                            data:$("#myForm").serialize(),
+                            data:$("#lianjieForm").serialize(),
                             success:function(data){
                                 //刷新表格
                                 $('#LianJieTable').bootstrapTable('refresh');
@@ -252,7 +252,7 @@
             data:{id:id},
             success:function(data){
                 $("#id").val(data.id);
-                alert(data.id);
+               // alert(data.id);
                 $("#name").val(data.name);
                 $("#url").val(data.url);
                 $("#paixu").val(data.paixu);

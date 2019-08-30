@@ -91,8 +91,8 @@ public class ZhuanQuServiceImpl implements ZhuanQuService{
     }
 
     @Override
-    public void saveLianJie(LianJieBean lianJieBean) {
-        zhuanQuDao.saveLianJie(lianJieBean);
+    public void saveLianJieshow(LianJieBean lianJieBean) {
+        zhuanQuDao.saveLianJieshow(lianJieBean);
     }
 
     @Override
@@ -103,5 +103,10 @@ public class ZhuanQuServiceImpl implements ZhuanQuService{
     @Override
     public void delLianJieByIds(Integer[] ids) {
         zhuanQuDao.delLianJieByIds(ids);
+    }
+
+    @Override
+    public List<TuiJianBean> findTuiJianList() {
+        return zhuanQuDao.findTuiJianList();
     }
 }

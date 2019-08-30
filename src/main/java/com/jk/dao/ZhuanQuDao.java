@@ -7,7 +7,7 @@ import org.apache.ibatis.annotations.Update;
 
 import java.util.List;
 
-public interface ZhuanQuDao {
+public interface  ZhuanQuDao {
 
     @Select("select * from sh_zhuanqu")
 
@@ -45,9 +45,11 @@ public interface ZhuanQuDao {
     @Update("update sh_lianjie set name=#{name},paixu=#{paixu},status=#{status},url=#{url} where id=#{id}")
     void updateLianJie(LianJieBean lianJieBean);
     @Insert("insert into sh_lianjie (name,paixu,status,url) values(#{name},#{paixu},#{status}#{url})")
-    void saveLianJie(LianJieBean lianJieBean);
+    void saveLianJieshow(LianJieBean lianJieBean);
     @Select("select * from sh_lianjie where id=#{value}")
     LianJieBean EditLianJieById(String id);
 
     void delLianJieByIds(Integer[] ids);
+    @Select("select * from sh_tuijian")
+    List<TuiJianBean> findTuiJianList();
 }

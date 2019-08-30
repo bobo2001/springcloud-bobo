@@ -37,9 +37,11 @@ public interface ZhuanQuService {
 
     void updateLianJie(LianJieBean lianJieBean);
 
-    void saveLianJie(LianJieBean lianJieBean);
+    void saveLianJieshow(LianJieBean lianJieBean);
 
     LianJieBean EditLianJieById(String id);
 
     void delLianJieByIds(Integer[] ids);
+
+    List<TuiJianBean> findTuiJianList();
 }
