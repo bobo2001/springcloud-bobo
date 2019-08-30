@@ -1,9 +1,7 @@
 package com.jk.service;
 
 import com.jk.dao.ZhuanQuDao;
-import com.jk.pojo.ShouYeBean;
-import com.jk.pojo.TouBuBean;
-import com.jk.pojo.ZhuanQuBean;
+import com.jk.pojo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -55,5 +53,55 @@ public class ZhuanQuServiceImpl implements ZhuanQuService{
     @Override
     public void saveShouYe(ShouYeBean shouYeBean) {
         zhuanQuDao.saveShouYe(shouYeBean);
+    }
+
+    @Override
+    public List<DiBuBean> findDiBuList() {
+        return zhuanQuDao.findDiBuList();
+    }
+
+    @Override
+    public void updateDiBu(DiBuBean diBuBean) {
+        zhuanQuDao.updateDiBu(diBuBean);
+    }
+
+    @Override
+    public void saveDiBu(DiBuBean diBuBean) {
+        zhuanQuDao.saveDiBu(diBuBean);
+    }
+
+    @Override
+    public DiBuBean EditDiBuById(String id) {
+        return zhuanQuDao.EditDiBuById(id);
+    }
+
+    @Override
+    public void delDiBuByIds(Integer[] ids) {
+        zhuanQuDao.delDiBuByIds(ids);
+    }
+
+    @Override
+    public List<LianJieBean> findLianJieList() {
+        return zhuanQuDao.findLianJieList();
+    }
+
+    @Override
+    public void updateLianJie(LianJieBean lianJieBean) {
+        zhuanQuDao.updateLianJie(lianJieBean);
+    }
+
+    @Override
+    public void saveLianJie(LianJieBean lianJieBean) {
+        zhuanQuDao.saveLianJie(lianJieBean);
+    }
+
+    @Override
+    public LianJieBean EditLianJieById(String id) {
+        return zhuanQuDao.EditLianJieById(id);
+    }
+
+    @Override
+    public void delLianJieByIds(Integer[] ids) {
+        zhuanQuDao.delLianJieByIds(ids);
     }
 }
