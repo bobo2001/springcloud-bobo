@@ -1,8 +1,6 @@
 package com.jk.controller;
 
-import com.jk.pojo.ShouYeBean;
-import com.jk.pojo.TouBuBean;
-import com.jk.pojo.ZhuanQuBean;
+import com.jk.pojo.*;
 import com.jk.service.ZhuanQuService;
 import com.jk.utils.FileUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -122,52 +121,110 @@ public class ZhuanQuController {
     public String ToShouYeShowList(){
         return "ShouYeShowList";
     }
-   /* //查询专区
-    @RequestMapping("findZhuanQuList")
+
+   //查询底部
+    @RequestMapping("findDiBuList")
     @ResponseBody
-    public List<ZhuanQuBean> findZhuanQuList(){
-        return zhuanQuService.findZhuanQuList();
+    public List<DiBuBean> findDiBuList(){
+        return zhuanQuService.findDiBuList();
     }
-    @RequestMapping("ToZhuanQuShowList")
-    public String ToZhuanQuShowList(){
-        return "ZhuanQuShowList";
+    @RequestMapping("ToDiBuShowList")
+    public String ToDiBuShowList(){
+        return "DiBuShowList";
     }
-    //跳转专区新增
-    @RequestMapping("toAddZhuanQu")
-    public String toAddZhuanQu(){
-        return "AddZhuanQu";
+    //跳转底部新增
+    @RequestMapping("toAddDiBu")
+    public String toAddDiBu(){
+        return "AddDiBu";
     }
-    //专区新增 saveZhuanQu
-    @RequestMapping("saveZhuanQu")
+    //底部新增 saveDiBu
+    @RequestMapping("saveDiBu")
     @ResponseBody
-    public  Boolean saveZhuanQu(ZhuanQuBean zhuanQuBean){
+    public  Boolean saveDiBu(DiBuBean diBuBean){
         try {
-            if(zhuanQuBean.getId() != null){
-                zhuanQuService.updateZhuanQu(zhuanQuBean);
+            if(diBuBean.getId() != null){
+                zhuanQuService.updateDiBu(diBuBean);
             }else{
-                zhuanQuService.saveZhuanQu(zhuanQuBean);
+                zhuanQuService.saveDiBu(diBuBean);
             }
             return true;
         }catch (Exception e){
             return false;
         }
     }
-    //专区回显 EditZhuanQuById
-    @RequestMapping("EditZhuanQuById")
+    //底部回显 EditDiBuById
+    @RequestMapping("EditDiBuById")
     @ResponseBody
-    public ZhuanQuBean  EditZhuanQuById(String  id){
-        return zhuanQuService.EditZhuanQuById(id);
+    public DiBuBean  EditDiBuById(String  id){
+        return zhuanQuService.EditDiBuById(id);
     }
-    //专区删除    delZhuanQuByIds
-    @RequestMapping("delZhuanQuByIds")
+    //底部删除    delDiBuByIds
+    @RequestMapping("delDiBuByIds")
     @ResponseBody
-    public Boolean delZhuanQuByIds(Integer[] ids){
+    public Boolean delDiBuByIds(Integer[] ids){
         try {
-            zhuanQuService.delZhuanQuByIds(ids);
+            zhuanQuService.delDiBuByIds(ids);
             return true;
         } catch (Exception e) {
             e.printStackTrace();
             return false;
         }
-    }*/
+    }
+    //查询链接
+    @RequestMapping("findLianJieList")
+    @ResponseBody
+    public List<LianJieBean> findLianJieList(){
+        List<LianJieBean> list = zhuanQuService.findLianJieList();
+        List<LianJieBean> list1 = new ArrayList<LianJieBean>();
+        for (int i =0 ;i<list.size();i++){
+            LianJieBean lianJieBean = list.get(i);
+            lianJieBean.setNameurl(lianJieBean.getName()+lianJieBean.getUrl());
+            list1.add(lianJieBean);
+        }
+        return list1;
+    }
+
+    //跳转链接新增
+    @RequestMapping("toAddLianJie")
+    public String toAddLianJie(){
+        return "AddLianJie";
+    }
+    //链接新增 saveLianJie
+    @RequestMapping("saveLianJie")
+    @ResponseBody
+    public  Boolean saveLianJie(LianJieBean lianJieBean){
+        try {
+            if(lianJieBean.getId() != null){
+                zhuanQuService.updateLianJie(lianJieBean);
+            }else{
+                zhuanQuService.saveLianJie(lianJieBean);
+            }
+            return true;
+        }catch (Exception e){
+            return false;
+        }
+    }
+    //链接回显 EditLianJieById
+    @RequestMapping("EditLianJieById")
+    @ResponseBody
+    public LianJieBean  EditLianJieById(String  id){
+        return zhuanQuService.EditLianJieById(id);
+    }
+    //链接删除    delLianJieByIds
+    @RequestMapping("delLianJieByIds")
+    @ResponseBody
+    public Boolean delLianJieByIds(Integer[] ids){
+        try {
+            zhuanQuService.delLianJieByIds(ids);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    @RequestMapping("ToLianJieShowList")
+    public String ToLianJieShowList(){
+        return "LJShowList";
+    }
 }

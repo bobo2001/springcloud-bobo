@@ -22,97 +22,24 @@
     <script src="/bootstrap/bootStrap-addTabs/bootstrap.addtabs.min.js"></script>
 </head>
 <body>
-
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="myModalLabel">新增</h4>
-            </div>
-            <form id="myliForm">
-                <div class="row myRow">
-                    <div class="col-md-4">
-                        <label for="showImg"><img id="showImg" alt="" src="" width="50px" height="50px"></label>
-                    </div>
-                    <div class="col-md-8">
-                        <input type="text" class="form-control" id="hideImg"  name="img"  style="display: none">
-                        <input type="file" id="uploadify" >
-                    </div>
-                </div>
-                <div class="row myRow">
-                    <div class="col-md-4">
-                        <label for="name">广告标题</label>
-                    </div>
-                    <div class="col-md-8">
-                        <input type="text" class="form-control" id="name" name="name" placeholder="(,,´•ω•)ノ(´っω•｀。)么么哒！！！">
-                    </div>
-                </div>
-                <div class="row myRow">
-                    <div class="col-md-4">
-                        <label for="lianjie">广告链接</label>
-                    </div>
-                    <div class="col-md-8">
-                        <input type="text" class="form-control" id="lianjie" name="lianjie" placeholder="(,,´•ω•)ノ(´っω•｀。)么么哒！！！">
-                    </div>
-                </div>
-                <div class="row myRow">
-                    <div class="col-md-4">
-                        <label for="paixu">排序</label>
-                    </div>
-                    <div class="col-md-8">
-                        <input type="text" class="form-control" id="paixu"  name="paixu" placeholder="请填序号">
-                    </div>
-                </div>
-                <div class="row myRow">
-                    <div class="col-md-4">
-                        <label for="status">状态</label>
-                    </div>
-                    <div class="col-md-8">
-                        <input type="text" class="form-control" id="status"  name="status" placeholder="状态">
-                    </div>
-                </div>
-                <div class="row myRow">
-                    <div class="col-md-4">
-                        <label for="stattime">开始时间</label>
-                    </div>
-                    <div class="col-md-8">
-                        <input type="date" class="form-control" id="stattime" name="stattime" placeholder="(,,´•ω•)ノ(´っω•｀。)么么哒！！！">
-                    </div>
-                </div>
-                <div class="row myRow">
-                    <div class="col-md-4">
-                        <label for="endtime">结束时间</label>
-                    </div>
-                    <div class="col-md-8">
-                        <input type="date" class="form-control" id="endtime" name="endtime" placeholder="(,,´•ω•)ノ(´っω•｀。)么么哒！！！">
-                    </div>
-                </div>
-            </form>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                <button type="button" class="btn btn-primary" onclick="openAddUser()">提交</button>
-            </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal -->
-</div>
-
 <div id="toolbar">
     <form class="form-inline">
         <div class="form-group">
             <label for="name">专区名称</label>
-            <input type="text" class="form-control"id="name" placeholder="请输入名称">
+            <input type="text" class="form-control" id= "name" placeholder="请输入名称">
         </div>
         <button type="button" onclick="searchUser()" class="btn btn-success glyphicon glyphicon-search">搜索</button>
         <button type="button" onclick="clearss()" class="btn btn-warning ">清空查询</button>
 
     </form>
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-danger" onclick="delOrder()">删除</button>
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button type="button"  data-toggle="modal" data-target="#myModal"class="btn btn-info glyphicon glyphicon-plus">新增</button>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-danger" onclick="delLianJie()">删除</button>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button type="button" onclick="openAddLianJie()" class="btn btn-info glyphicon glyphicon-plus">新增</button>
 </div>
-<table id="ShouYeTable"></table>
+<table id="LianJieTable"></table>
 </body>
+
 <script type="text/javascript">
+
     //新增弹框
     var res;
     function createAddContent(url){
@@ -125,11 +52,13 @@
         });
         return res;
     }
+
+
     //打开新增弹框
-    function openAddUser(){
+    function openAddLianJie(){
         bootbox.dialog({
             title:'新增用户',
-            message: createAddContent("/zhuanqu/toAddShouye"),
+            message: createAddContent("/zhuanqu/toAddLianJie"),
             closeButton: true,//是否显示关闭按钮
             buttons : {
                 "success" : {
@@ -137,13 +66,13 @@
                     "className" : "btn-sm btn-success",
                     "callback" : function() {
                         $.ajax({
-                            url:'/zhuanqu/saveShouYe',
+                            url:'/zhuanqu/saveLianJie',
                             type:'post',
-                            data:$("#myliForm").serialize(),
+                            data:$("#myForm").serialize(),
                             success:function(data){
                                 //刷新表格
-                              $('#ShouYeTable').bootstrapTable('refresh');
-                                //searchUser();
+                                $('#LianJieTable').bootstrapTable('refresh');
+                               // searchUser();
                             }
                         });
                     }
@@ -152,14 +81,17 @@
                     "label" : "<i class='icon-info'></i> 取消",
                     "className" : "btn-sm btn-danger",
                     "callback" : function() {
+
                     }
                 }
             }
+
         });
+
     }
     /*查询*/
-    $("#ShouYeTable").bootstrapTable({
-        url: '/zhuanqu/findShouYeList',
+    $("#LianJieTable").bootstrapTable({
+        url: '/zhuanqu/findLianJieList',
         toolbar: '#toolbar',
         pagination: true, //是否展示分页
         pageList: [1,3, 5, 10, 20, 50],//分页组件
@@ -187,18 +119,9 @@
         sidePagination: 'client',
         columns: [
             {field:"000",checkbox:true},
-            {field:'img',title:'封面',formatter:function(value,row,index){
-                    return '<img src="'+ value +'" width="50px" height="50px"/>';
-                }},
             {field:'id',title:'编号'},
-            {field:'name'/*+lianjie*/,title:'广告标题/广告链接',formatter:function (value,row,index){
-                return value+""+row.lianjie;
-            }
-            },
-            {field:'stattime',title:'开始时间'},
-
-            {field:'endtime',title:'结束时间'},
-            /*{field:'lianjie',title:'广告链接'},*/
+            {field:'nameurl',title:'链接名称/链接地址'},
+           /* {field:'url',title:'链接地址'},*/
             {field:'paixu',title:'排序'},
             {field:'status',title:'状态',formatter:function (value,row,index){
                     var stu = "";
@@ -212,8 +135,8 @@
                 }},
             {field:'123',title:'操作',formatter:function(value,row,index){
                     /*return '<a href="javascript:delOrder('+row.id+')">删除</a>  |  <a href="javascript:update('+row.id+')">修改</a>'*/
-                    return '<button type="button" class="btn btn-success" onclick="editUser('+row.id+')" class="btn btn-info">修改</button>' +
-                        '<button type="button" class="btn btn-danger" onclick="delOrder('+row.id+')" class="btn btn-info">删除</button>' +
+                    return '<button type="button" class="btn btn-success" onclick="editZhuanQu('+row.id+')" class="btn btn-info">修改</button>' +
+                        '<button type="button" class="btn btn-danger" onclick="delLianJie('+row.id+')" class="btn btn-info">删除</button>' +
                         '<button type="button" class="btn btn-warning" onclick="updrole('+row.id+')" class="btn btn-info">禁用</button>' +
                         '<button type="button" class="btn btn-success"  onclick="updpasw('+row.id+')" class="btn btn-info">专区课程</button>';
                 }}
@@ -221,8 +144,8 @@
         ]
     })
     //批量删除
-    function delOrder(){
-        var arr = $("#ShouYeTable").bootstrapTable("getSelections");
+    function delLianJie(){
+        var arr = $("#LianJieTable").bootstrapTable("getSelections");
         if(arr.length<=0){//没有选择
             //bootbox.alert("请至少选择一条!");
             bootbox.alert({
@@ -261,7 +184,7 @@
                         }
                         alert(ids);
                         $.ajax({
-                            url:"/zhuanqu/delZhuanQuByIds",
+                            url:"/zhuanqu/delLianJieByIds",
                             type:"post",
                             data:{ids:ids},
                             success:function(){
@@ -279,7 +202,7 @@
                                     callback: function(){}
                                 })
                                 //刷新表格
-                                $("#ShouYeTable").bootstrapTable("refresh");//表格刷新数据;
+                                $("#LianJieTable").bootstrapTable("refresh");//表格刷新数据;
                             }
                         })
                     }
@@ -287,51 +210,64 @@
             })
         }
     }
-    //上传插件
-    $("#uploadify").uploadify({
-        //插件自带  不可忽略的参数
-        'swf': '<%=request.getContextPath()%>/js/uploadify/uploadify.swf',
-        //前台请求后台的url 不可忽略的参数
-        'uploader': '<%=request.getContextPath()%>/zhuanqu/upload',
-        //给div的进度条加背景 不可忽略
-        'queueID': 'fileQueue',
-        //上传文件文件名
-        'fileObjName' : 'img',
-        //给上传按钮设置文字
-        'buttonText': '上传图片',
-        //设置文件是否自动上传
-        'auto': true,
-        //可以同时选择多个文件 默认为true  不可忽略
-        'multi': false,
-        //上传后队列是否消失
-        'removeCompleted': true,
-        //允许上传的文件后缀
-        'fileExt': '*.jpg;*.gif;*.png',
-        //
-        'cancelImg': '<%=request.getContextPath()%>/js/uploadify/uploadify-cancel.png',
-        //队列消失时间
-        'removeTimeout' : 1,
-        //上传文件的个数，项目中一共可以上传文件的个数
-        'uploadLimit':  -1,
-        'fileTypeExts': '*.jpg;*.png',
-        //开始执行上传
-        'onUploadStart':function(files){
-            //$.messager.progress({ title:'提示',msg:'上传中...' });
-        },
-        //上传失败
-        'onUploadError':function(){
-            //$.messager.progress('close');
-            //$.messager.alert('提示','上传失败');
-            alert("上传失败");
-        },
-        //成功回调函数 file：文件对象。data后台输出数据
-        'onUploadSuccess':function(file,data,response){
-            //$.messager.progress('close');
-            //  alert(data+file.name)
-            var imgurl = "http://<%= request.getServerName()%>:<%=request.getServerPort()%><%=request.getContextPath()%>/"+data
-            $("#showImg").attr("src",imgurl);
-            $('#hideImg').val(imgurl);
-        }
-    });
+    //打开修改页面：回显
+    function editZhuanQu(id){
+        bootbox.dialog({
+            title:'修改用户',
+            message: createAddContent("/zhuanqu/toAddLianJie"),
+            closeButton: true,//是否显示关闭按钮
+            buttons : {
+                "success" : {
+                    "label" : "<i class='icon-ok'></i> 保存",
+                    "className" : "btn-sm btn-success",
+                    "callback" : function() {
+                        $.ajax({
+                            url:'/zhuanqu/saveLianJie',
+                            type:'post',
+                            data:$("#myForm").serialize(),
+                            success:function(data){
+                                //刷新表格
+                                $('#LianJieTable').bootstrapTable('refresh');
+                                // searchUser();
+                            }
+                        });
+                    }
+                },
+                "cancel" : {
+                    "label" : "<i class='icon-info'></i> 取消",
+                    "className" : "btn-sm btn-danger",
+                    "callback" : function() {
+
+                    }
+                }
+            }
+
+        });
+
+        //回显数据
+        $.ajax({
+            url:"/zhuanqu/EditLianJieById",
+            type:"post",
+            async:false,//同步
+            data:{id:id},
+            success:function(data){
+                $("#id").val(data.id);
+                alert(data.id);
+                $("#name").val(data.name);
+                $("#url").val(data.url);
+                $("#paixu").val(data.paixu);
+                $(":input[name='status']").each(function(){
+                    //debugger;
+                    var sex = $(this).val();
+                    if(sex==data.status){
+                        $(this).prop("checked",true);
+                    }
+                })
+
+
+
+            }
+        })
+    }
 </script>
 </html>

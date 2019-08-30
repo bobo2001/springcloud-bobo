@@ -23,9 +23,10 @@
 </head>
 <body>
 <div id="toolbar">
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-danger" onclick="delOrder()">删除</button>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-danger" onclick="delTouBu()">删除</button>
     <!--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;会员:<input type="text" id="huiyuan">
     <button type="button" class="btn btn-primary" data-toggle="button" onclick="serchBtn()">🔍</button>-->
+    <button type="button" onclick="openAddUser()" class="btn btn-info glyphicon glyphicon-plus">新增</button>
 </div>
 <table id="TouBuTable"></table>
 </body>
@@ -76,7 +77,11 @@
                     return stu;
                 }},
             {field:'111',title:'操作',formatter:function(value,row,index){
-                    return '<a href="javascript:delOrder('+row.id+')">删除</a>  |  <a href="javascript:update('+row.id+')">修改</a>'
+                   /* return '<a href="javascript:delOrder('+row.id+')">删除</a>  |  <a href="javascript:update('+row.id+')">修改</a>'*/
+                    return '<button type="button" class="btn btn-success" onclick="editUser('+row.id+')" class="btn btn-info">修改</button>' +
+                        '<button type="button" class="btn btn-danger" onclick="delTouBu('+row.id+')" class="btn btn-info">删除</button>' +
+                        '<button type="button" class="btn btn-warning" onclick="updrole('+row.id+')" class="btn btn-info">禁用</button>' +
+                        '<button type="button" class="btn btn-success"  onclick="updpasw('+row.id+')" class="btn btn-info">专区课程</button>';
                 }}
 
         ]
@@ -92,7 +97,7 @@
         }*/
 
     //批量删除
-    function delOrder(){
+    function delTouBu(){
         var arr = $("#TouBuTable").bootstrapTable("getSelections");
         if(arr.length<=0){//没有选择
             //bootbox.alert("请至少选择一条!");

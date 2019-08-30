@@ -1,8 +1,6 @@
 package com.jk.service;
 
-import com.jk.pojo.ShouYeBean;
-import com.jk.pojo.TouBuBean;
-import com.jk.pojo.ZhuanQuBean;
+import com.jk.pojo.*;
 
 import java.util.List;
 
@@ -24,4 +22,24 @@ public interface ZhuanQuService {
     List<ShouYeBean> findShouYeList();
 
     void saveShouYe(ShouYeBean shouYeBean);
+
+    List<DiBuBean> findDiBuList();
+
+    void updateDiBu(DiBuBean diBuBean);
+
+    void saveDiBu(DiBuBean diBuBean);
+
+    DiBuBean EditDiBuById(String id);
+
+    void delDiBuByIds(Integer[] ids);
+
+    List<LianJieBean> findLianJieList();
+
+    void updateLianJie(LianJieBean lianJieBean);
+
+    void saveLianJie(LianJieBean lianJieBean);
+
+    LianJieBean EditLianJieById(String id);
+
+    void delLianJieByIds(Integer[] ids);
 }

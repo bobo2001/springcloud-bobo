@@ -15,19 +15,19 @@
     <form id="myForm">
         <div class="row myRow">
             <div class="col-md-4">
-                <label for="name">专区名称</label>
+                <label for="name">链接名称</label>
             </div>
             <div class="col-md-8">
-                <input type="text" class="form-control" id="name"  name="name" placeholder="专区名称">
+                <input type="text" class="form-control" id="name"  name="name" placeholder="链接名称">
                 <input type="hidden" class="form-control" id="id"  name="id" >
             </div>
         </div>
         <div class="row myRow">
             <div class="col-md-4">
-                <label for="title">描述</label>
+                <label for="url">链接地址</label>
             </div>
             <div class="col-md-8">
-                <input type="text" class="form-control" id="title" name="title" placeholder="(,,´•ω•)ノ(´っω•｀。)么么哒！！！">
+                <input type="text" class="form-control" id="url" name="url" placeholder="(,,´•ω•)ノ(´っω•｀。)么么哒！！！">
             </div>
         </div>
         <div class="row myRow">
@@ -35,7 +35,9 @@
                 <label for="paixu">排序</label>
             </div>
             <div class="col-md-8">
-                <input type="text" class="form-control" id="paixu"  name="paixu" placeholder="请填序号">
+                <button class="btn btn-default btn-xs" type="button" onclick="upOne()" ><span class="glyphicon glyphicon-menu-up"></span></button>
+                <input type="text"  class="form-control" id="paixu"  name="paixu" placeholder="请填序号">
+                <button class="btn btn-default btn-xs" type="button"  onclick="downOne()"><span class="glyphicon glyphicon-menu-down"></span></button>
             </div>
         </div>
         <div class="row myRow">
@@ -43,8 +45,8 @@
                 <label>状态</label>
             </div>
             <div class="col-md-8">
-<!--                <input type="radio"  name="charge" value="免费">免费
-                <input type="radio"  name="charge" value="收费">收费-->
+                <!--                <input type="radio"  name="charge" value="免费">免费
+                                <input type="radio"  name="charge" value="收费">收费-->
                 <input type="radio" id="1" name="status" value="1" placeholder="状态">正常
                 <input type="radio" id="0" name="status" value="0" placeholder="状态">异常
             </div>
@@ -53,5 +55,17 @@
 </div>
 </body>
 <script type="text/javascript">
+    function upOne(){
+        var paixuq = $("#paixu").val();
+        paixuq = Number(paixuq)+1;
+        $("#paixu").val(paixuq);
+    }
+    function downOne(){
+        var paixuq = $("#paixu").val();
+        if (paixuq>0) {
+            paixuq = Number(paixuq)-1;
+            $("#paixu").val(paixuq);
+        }
+    }
 </script>
 </html>

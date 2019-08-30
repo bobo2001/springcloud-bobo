@@ -25,17 +25,16 @@
 <div id="toolbar">
     <form class="form-inline">
         <div class="form-group">
-            <label for="name">专区名称</label>
-            <input type="text" class="form-control"id="zhuanquname" placeholder="请输入名称">
+            <label for="name">底部名称</label>
+            <input type="text" class="form-control"id="name" placeholder="请输入名称">
         </div>
-        <button type="button" onclick="searchUser()" class="btn btn-success glyphicon glyphicon-search">搜索</button>
+        <button type="button" onclick="searchUser()" class="btn btn-success glyphicon glyphicon-search">搜索🔍</button>
         <button type="button" onclick="clearss()" class="btn btn-warning ">清空查询</button>
-
     </form>
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-danger" onclick="delOrder()">删除</button>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-danger" onclick="delDiBu()">删除</button>
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button type="button" onclick="openAddUser()" class="btn btn-info glyphicon glyphicon-plus">新增</button>
 </div>
-<table id="OrderTable"></table>
+<table id="DiBuTable"></table>
 </body>
 
 <script type="text/javascript">
@@ -57,7 +56,7 @@
     function openAddUser(){
         bootbox.dialog({
             title:'新增用户',
-            message: createAddContent("/zhuanqu/toAddZhuanQu"),
+            message: createAddContent("/zhuanqu/toAddDiBu"),
             closeButton: true,//是否显示关闭按钮
             buttons : {
                 "success" : {
@@ -65,7 +64,7 @@
                     "className" : "btn-sm btn-success",
                     "callback" : function() {
                         $.ajax({
-                            url:'/zhuanqu/saveZhuanQu',
+                            url:'/zhuanqu/saveDiBu',
                             type:'post',
                             data:$("#myForm").serialize(),
                             success:function(data){
@@ -89,8 +88,8 @@
 
     }
     /*查询*/
-    $("#OrderTable").bootstrapTable({
-        url: '/zhuanqu/findZhuanQuList',
+    $("#DiBuTable").bootstrapTable({
+        url: '/zhuanqu/findDiBuList',
         toolbar: '#toolbar',
         pagination: true, //是否展示分页
         pageList: [1,3, 5, 10, 20, 50],//分页组件
@@ -119,8 +118,7 @@
         columns: [
             {field:"000",checkbox:true},
             {field:'id',title:'编号'},
-            {field:'name',title:'专区名称'},
-            {field:'title',title:'专区描述'},
+            {field:'name',title:'导航名称'},
             {field:'paixu',title:'排序'},
             {field:'status',title:'状态',formatter:function (value,row,index){
                     var stu = "";
@@ -132,19 +130,19 @@
                     }
                     return stu;
                 }},
-            {field:'123',title:'操作',formatter:function(value,row,index){
-                    /*return '<a href="javascript:delOrder('+row.id+')">删除</a>  |  <a href="javascript:update('+row.id+')">修改</a>'*/
-                    return '<button type="button" class="btn btn-success" onclick="editZhuanQu('+row.id+')" class="btn btn-info">修改</button>' +
-                        '<button type="button" class="btn btn-danger" onclick="delOrder('+row.id+')" class="btn btn-info">删除</button>' +
+            {field:'1sd3',title:'操作',formatter:function(value,row,index){
+                   /* return '<a href="javascript:delDiBu('+row.id+')">删除</a>  |  <a href="javascript:update('+row.id+')">修改</a>';*/
+                   return '<button type="button" class="btn btn-success" onclick="editUser('+row.id+')" class="btn btn-info">修改</button>' +
+                        '<button type="button" class="btn btn-danger" onclick="delDiBu('+row.id+')" class="btn btn-info">删除</button>' +
                         '<button type="button" class="btn btn-warning" onclick="updrole('+row.id+')" class="btn btn-info">禁用</button>' +
                         '<button type="button" class="btn btn-success"  onclick="updpasw('+row.id+')" class="btn btn-info">专区课程</button>';
-            }}
+                }}
 
         ]
     })
     //批量删除
-    function delOrder(){
-        var arr = $("#OrderTable").bootstrapTable("getSelections");
+    function delDiBu(){
+        var arr = $("#DiBuTable").bootstrapTable("getSelections");
         if(arr.length<=0){//没有选择
             //bootbox.alert("请至少选择一条!");
             bootbox.alert({
@@ -183,7 +181,7 @@
                         }
                         alert(ids);
                         $.ajax({
-                            url:"/zhuanqu/delZhuanQuByIds",
+                            url:"/zhuanqu/delDiBuByIds",
                             type:"post",
                             data:{ids:ids},
                             success:function(){
@@ -201,7 +199,7 @@
                                     callback: function(){}
                                 })
                                 //刷新表格
-                                $("#OrderTable").bootstrapTable("refresh");//表格刷新数据;
+                                $("#DiBuTable").bootstrapTable("refresh");//表格刷新数据;
                             }
                         })
                     }
@@ -210,10 +208,10 @@
         }
     }
     //打开修改页面：回显
-    function editZhuanQu(id){
+    function editUser(id){
         bootbox.dialog({
             title:'修改用户',
-            message: createAddContent("/zhuanqu/toAddZhuanQu"),
+            message: createAddContent("/zhuanqu/toAddDiBu"),
             closeButton: true,//是否显示关闭按钮
             buttons : {
                 "success" : {
@@ -221,13 +219,13 @@
                     "className" : "btn-sm btn-success",
                     "callback" : function() {
                         $.ajax({
-                            url:'/zhuanqu/saveZhuanQu',
+                            url:'/saveZhuanQu',
                             type:'post',
                             data:$("#myForm").serialize(),
                             success:function(data){
                                 //刷新表格
                                 $('#OrderTable').bootstrapTable('refresh');
-                               // searchUser();
+                                // searchUser();
                             }
                         });
                     }
@@ -245,17 +243,16 @@
 
         //回显数据
         $.ajax({
-            url:"/zhuanqu/EditZhuanQuById",
+            url:"/EditDiBuById",
             type:"post",
             async:false,//同步
             data:{id:id},
             success:function(data){
                 $("#id").val(data.id);
-                alert(data.id);
                 $("#name").val(data.name);
                 $("#title").val(data.title);
                 $("#paixu").val(data.paixu);
-               $(":input[name='status']").each(function(){
+                $(":input[name='status']").each(function(){
                     //debugger;
                     var sex = $(this).val();
                     if(sex==data.status){

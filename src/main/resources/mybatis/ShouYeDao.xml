@@ -17,5 +17,18 @@
             #{item}
         </foreach>
     </delete>
-    <insert id=""></insert>
+    <!--底部删除 delDiBuByIds -->
+    <delete id="delDiBuByIds" parameterType="int" >
+        delete from sh_dibu where id in
+        <foreach collection="array" item="item" index="index" separator="," open="(" close=")">
+            #{item}
+        </foreach>
+    </delete>
+    <!--链接删除 delLianJieByIds -->
+    <delete id="delLianJieByIds" parameterType="int" >
+        delete from sh_lianjie where id in
+        <foreach collection="array" item="item" index="index" separator="," open="(" close=")">
+            #{item}
+        </foreach>
+    </delete>
 </mapper>
