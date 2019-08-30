@@ -11,4 +11,9 @@ public interface TeacherService {
     HashMap<String, Object> findFenRun(Fenrun fenrun);
 
     void saveLect(Lecturer lecturer);
+
+    Lecturer findAudById(Integer id);
+
+
+    void updateAudit(Integer id);
 }

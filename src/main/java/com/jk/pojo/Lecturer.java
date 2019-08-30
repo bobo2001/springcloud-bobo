@@ -9,7 +9,7 @@ public class Lecturer {
     private Integer status;//状态:1正常 2.禁用
     private String proportion; //分成比例
     private Integer audit; //审核情况:1.待审核 2.审核通过 3.审核不通过
-    private String lecturership; //讲师名称
+    private String lecturership; //讲师职位
     private Integer sorting;//讲师排序
     private String info;//讲师简介
     private String blankName;//银行名称

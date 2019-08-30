@@ -5,6 +5,7 @@ import com.jk.pojo.Lecturer;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import java.util.HashMap;
 import java.util.List;
@@ -23,5 +24,11 @@ public interface TeacherDao {
     List<Fenrun> findFenRunList(@Param("page") int page, @Param("rows") Integer rows, @Param("fenrun") Fenrun fenrun);
 
     @Insert("insert into t_lecturer (teacheName,phone,email) values(#{teacheName},#{phone},#{email})")
-    void saveLect(Lecturer lecturer);
+    void saveLect(@Param("lecturer") Lecturer lecturer);
+
+    @Select("select * from t_lecturer where id=#{id}")
+    Lecturer findAudById(@Param("id") Integer id);
+
+    @Update("update t_lecturer set phone=#{phone},teacheName=#{teacheName},email=#{email},info=#{email},creditNumber=#{creditNumber} where id=#{id}")
+    void updateAudit(@Param("id") Integer id);
 }

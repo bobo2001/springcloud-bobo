@@ -54,7 +54,7 @@
         </div>
         <div class="form-group">
             <label>手机号：</label>
-            <input type="text" class="form-control" id="phone" placeholder="请输入手机号">
+            <input type="text" class="form-control" id="phone1" placeholder="请输入手机号">
         </div>
         <div class="form-group">
             <label>状态：</label>
@@ -127,76 +127,83 @@
 
         });
     }
-      function updateAud(id) {
-          $.ajax({
-              url:'/teacher/findAut',
-              data:{
-                  id:id
-              },
-              success:function(data){
+    /* function updateAud(id) {
+         $.ajax({
+             url:'/teacher/findAut',
+             data:{
+                 id:id
+             },
+             success:function(data){
 
-                  /*$("#id").val(data.id);
-                  $("#name").val(data.name);
-                  $("#startTime").val(data.startTime);
-                  $("#endTime").val(data.endTime);*/
+                 $("#id").val(data.id);
+                 $("#name").val(data.name);
+                 $("#startTime").val(data.startTime);
+                 $("#endTime").val(data.endTime);
               }
           })
-      }
+      }*/
 
-    /*var res;
-    function createAddContent(url){
-        $.ajax({
-            url:url,
-            async:false,
-            success:function(data){
-                res = data;
-            }
-        });
-        return res;
-    }
+    /*  var res;
+      function createAddContent(url){
+          $.ajax({
+              url:url,
+              async:false,
+              success:function(data){
+                  res = data;
+              }
+          });
+          return res;
+      }*/
 
-    function updateAud(orderID){
+    function updateAud(id){
         var dialog = bootbox.dialog({
-            title: '修改订单',
-            message: createAddContent('../teacher/toAddAud'),
+            title: '领课-修改信息',
+            message: createAddContent('/teacher/toUpdateAud'),
             size: 'large',
             buttons: {
                 cancel: {
-                    label: "No",
+                    label: "取消",
                     className: 'btn-danger',
                     callback: function(){
                         console.log('Custom cancel clicked');
                     }
                 },
                 ok: {
-                    label: "Yes",
+                    label: "修改",
                     className: 'btn-info',
                     callback: function(){
-                        saveBook();
+                        debugger
+                        $.ajax({
+                            url:'/teacher/updateAudit',
+                            type:'post',
+                            data:$("#myForm").serialize(),
+                            success:function(data){
+                                //刷新表格
+                                $('#myTables').bootstrapTable('refresh');
+
+                            }
+                        });
                     }
                 }
             }
         });
 
         $.ajax({
-            url:'../queryOrderByNO"',
+            url:'/teacher/findAudById',
             type:'post',
-            data:{orderID:orderID},
+            data:{id:id},
             dataType:'json',
             success:function(data){
-                $("#bookName").val(data.name);
-                $("#bookid").val(data.id);
-                $("#bookAuthor").val(data.author);
-                $("#bookPrice").val(data.price);
-                $("#bookType").val(data.typeid);
-                $("#bookProvince").val(data.provincecode);
-                initArea(data.provincecode,'../book/findArea.do','','bookCity');
-                $("#bookCity").val(data.citycode);
-                $("#bookTime").val(data.createtime);
-                $("#hideImg").val(data.img);
+                $("#id").val(data.id);
+                $("#teacheName").val(data.teacheName);
+                $("#phone").val(data.phone);
+                $("#email").val(data.email);
+                $("#sorting").val(data.sorting);
+                $("#info").val(data.info);
+                $("#creditNumber").val(data.creditNumber);
             }
         })
-    }*/
+    }
 
     //刷新表格
     function searchAuditor(){
@@ -217,7 +224,7 @@
                     page: this.pageNumber,
                     rows: this.pageSize,
                    teacheName:$("#teacherName").val(),
-                    phone:$("#phone").val(),
+                    phone:$("#phone1").val(),
                     status:$("#status").val()
                 };
             },

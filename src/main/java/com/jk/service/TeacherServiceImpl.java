@@ -46,5 +46,16 @@ public class TeacherServiceImpl implements TeacherService {
         teacherDao.saveLect(lecturer);
     }
 
+    @Override
+    public Lecturer findAudById(Integer id) {
+        return teacherDao.findAudById(id);
+    }
+
+    @Override
+    public void updateAudit(Integer id) {
+
+        teacherDao.updateAudit(id);
+    }
+
 
 }
