@@ -19,7 +19,7 @@ public class WzxUserBean implements Serializable {
     private String gmt_modified;
     private Integer status_id;
     private Integer sort;
-    private BigInteger user_no;
+    private String user_no;
     private String mobile;
     private String real_name;
     private String remark;
@@ -88,11 +88,11 @@ public class WzxUserBean implements Serializable {
         this.sort = sort;
     }
 
-    public BigInteger getUser_no() {
+    public String getUser_no() {
         return user_no;
     }
 
-    public void setUser_no(BigInteger user_no) {
+    public void setUser_no(String user_no) {
         this.user_no = user_no;
     }
 
@@ -144,7 +144,7 @@ public class WzxUserBean implements Serializable {
                 ", gmt_modified='" + gmt_modified + '\'' +
                 ", status_id=" + status_id +
                 ", sort=" + sort +
-                ", user_no=" + user_no +
+                ", user_no='" + user_no + '\'' +
                 ", mobile='" + mobile + '\'' +
                 ", real_name='" + real_name + '\'' +
                 ", remark='" + remark + '\'' +

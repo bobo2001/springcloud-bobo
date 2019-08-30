@@ -7,7 +7,12 @@ import com.jk.pojo.WzxUserBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigInteger;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Random;
+
 @Service
 public class WzxServiceImpl implements WzxService{
     @Autowired  private WzxDao wzxDao;
@@ -25,8 +30,21 @@ public class WzxServiceImpl implements WzxService{
 //用户新增
     @Override
     public void saveUser(WzxUserBean wzxUserBean) {
+
+        String randomFileName = WzxServiceImpl.getRandomFileName();
+        System.out.println("随机数 = [" + randomFileName + "]");;
+        wzxUserBean.setUser_no(randomFileName);
         wzxDao.saveUser(wzxUserBean);
     }
+    public static String getRandomFileName() {
+
+        String str = new SimpleDateFormat("yyyyMMdd").format(new Date());
+        int rannum = (int) (new Random().nextDouble() * (99999 - 10000 + 1)) + 10000;// 获取5位随机数
+        return str+rannum;// 
+
+    }
+
+
 //用户删除
     @Override
     public void deleteUser(Integer id) {

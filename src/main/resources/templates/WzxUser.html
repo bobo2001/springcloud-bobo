@@ -291,7 +291,7 @@
                     }
                 },
                 ok: {
-                    label: "保存!",
+                    label: "修改",
                     className: 'btn-info',
                     callback: function () {
                         var pas1 = document.getElementById("password1").value;
@@ -315,7 +315,18 @@
                                 callback: function (result) {
                                     if (result) {
                                         //刷新表格
-                                        updpasw();
+                                        $.ajax({
+                                            url: '../findUserAccount',
+                                            typr: 'post',
+                                            data: {
+                                                id:id
+                                            },
+                                            dataType: 'json',
+                                            success: function (data) {
+                                                $("#account").val(data.account);
+
+                                            }
+                                        })
                                     }
                                 }
                             })
@@ -349,7 +360,7 @@
             dataType: "json",
             success: function (data) {
                 if (data) {
-                    alert("登录页面");
+                   location.href="../page/login"
                 } else {
                     bootbox.alert({
                         size: 'small',

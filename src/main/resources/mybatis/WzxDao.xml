@@ -16,7 +16,7 @@
         </where>
     </sql>
 <insert id="saveUser" parameterType="com.jk.pojo.WzxUserBean">
-    INSERT INTO WZX_user (gmt_create,gmt_modified,status_id,sort,user_no,mobile,real_name,remark) VALUES (sysdate(),sysdate(),1,1,2018033111202589416,#{mobile},#{real_name},#{remark})
+    INSERT INTO WZX_user (gmt_create,gmt_modified,status_id,sort,user_no,mobile,real_name,remark) VALUES (sysdate(),sysdate(),1,1,#{user_no},#{mobile},#{real_name},#{remark})
 
 </insert>
     <update id="updUser" parameterType="com.jk.pojo.WzxUserBean">
