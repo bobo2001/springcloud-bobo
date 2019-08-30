@@ -43,6 +43,13 @@ public class WjfController {
         return "wjflingke";
     }
 
+    //课程分类页面
+    @RequestMapping("towjftypelist")
+    public String towjftypelist(){
+        return "wjftypelist";
+    }
+
+
 
 
 }

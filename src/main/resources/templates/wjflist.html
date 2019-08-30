@@ -51,7 +51,7 @@
                 {field:'abc',checkbox:true},
                 {field:'id',title:'序号'},
                 {field:'name',title:'课程名称',formatter:function(value,row,index){
-                    return '<a href="javascript:www('+row.id+')">'+value+'</a> <br> <a href="javascript:fff('+row.id+')"><font color="black">讲师:【</font>领课<font color="black">】</font></a>';
+                    return '<a href="javascript:www('+row.id+')">'+value+'</a> <br> <font color="black">讲师:【</font><a href="javascript:fff('+row.id+')">领课</a><font color="black">】</font>';
                 }},
                 {field:'type',title:'课程分类'},
                 {field:'charge',title:'是否收费',formatter:function(value,row,index){
