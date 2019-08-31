@@ -54,7 +54,7 @@
         </div>
         <div class="form-group">
             <label>手机号：</label>
-            <input type="text" class="form-control" id="phone" placeholder="请输入手机号">
+            <input type="text" class="form-control" id="phone1" placeholder="请输入手机号">
         </div>
         <div class="form-group">
             <label>状态：</label>
@@ -74,7 +74,7 @@
     $(function(){
         initLectTable();
     })
-    /* var res;
+     var res;
      function createAddContent(url){
          $.ajax({
              url:url,
@@ -85,57 +85,57 @@
          });
          return res;
      }
-     function  openAddActiv(){
-         bootbox.dialog({
-             title:'活动管理',//跳转新增页面的路径
-             message: createAddContent("/shool/toAddActiv"),
-             closeButton: true,//是否显示关闭按钮
-             buttons : {
-                 "success" : {
-                     "label" : "<i class='icon-ok'></i> 保存",
-                     "className" : "btn-sm btn-success",
-                     "callback" : function() {
-                         debugger
-                         $.ajax({
-                             url:'/shool/addActiv',
-                             type:'post',
-                             data:$("#myForm").serialize(),
-                             success:function(data){
-                                 //刷新表格
-                                 $('#myTables').bootstrapTable('refresh');
+     function updateAud(id){
+        var dialog = bootbox.dialog({
+            title: '领课-修改信息',
+            message: createAddContent('/teacher/toUpdateAud'),
+            size: 'large',
+            buttons: {
+                cancel: {
+                    label: "取消",
+                    className: 'btn-danger',
+                    callback: function(){
+                        console.log('Custom cancel clicked');
+                    }
+                },
+                ok: {
+                    label: "修改",
+                    className: 'btn-info',
+                    callback: function(){
 
-                             }
-                         });
-                     }
-                 },
-                 "cancel" : {
-                     "label" : "<i class='icon-info'></i> 取消",
-                     "className" : "btn-sm btn-danger",
-                     "callback" : function() {
+                        $.ajax({
+                            url:'/teacher/updateAudit',
+                            type:'post',
+                            data:$("#myForm").serialize(),
+                            success:function(data){
+                                //刷新表格
+                               // $('#myTables').bootstrapTable('refresh');
+                                searchAuditor();
+                            }
+                        });
+                    }
+                }
+            }
+        });
 
-                     }
-                 }
-             }
+        $.ajax({
+            url:'/teacher/findAudById',
+            type:'post',
+            data:{id:id},
+            dataType:'json',
+            success:function(data){
+                $("#id").val(data.id);
+                $("#teacheName").val(data.teacheName);
+                $("#phone").val(data.phone);
+                $("#email").val(data.email);
+                $("#sorting").val(data.sorting);
+                $("#info").val(data.info);
+                $("#creditNumber").val(data.creditNumber);
+            }
+        })
+    }
 
-         });
-     }
 
-     function updateAct(id) {
-         openAddActiv();
-         $.ajax({
-             url:'/shool/findActById',
-             data:{
-                 id:id
-             },
-             success:function(data){
-
-                 $("#id").val(data.id);
-                 $("#name").val(data.name);
-                 $("#startTime").val(data.startTime);
-                 $("#endTime").val(data.endTime);
-             }
-         })
-     }*/
     //刷新表格
     function searchAuditor(){
         $('#MyTables').bootstrapTable('refresh');
@@ -143,7 +143,7 @@
     function initLectTable() {
         $('#MyTables').bootstrapTable({
             toolbar:'#toolbar',//工具栏
-            url:'/teacher/findLecturer',//获取数据地址
+            url:'/teacher/findLecturer2',//获取数据地址
             pagination:true, //是否展示分页
             pageList:[2, 4, 6, 50],//分页组件
             pageNumber:1,
@@ -155,10 +155,10 @@
                     page: this.pageNumber,
                     rows: this.pageSize,
                     teacheName:$("#teacherName").val(),
-                    phone:$("#phone").val()
+                    phone:$("#phone1").val()
                 };
             },
-            columns:[{field:"checkbox",checkbox:true},
+            columns:[
                 {field:"id",title:"序号"},
                 {field:"phone",title:"手机号"},
                 {field:"teacheName",title:"讲师名称"},
@@ -174,12 +174,49 @@
                 {field:"proportion",title:"分成比例"},
 
                 {field:"tool",title:"操作",formatter:function(value,row,index){
-                        return "<a href='javascript:updateAct("+row.id+")'>修改</a>   <a href='javascript:openUpdate("+row.id+")'>禁用</a> <a href='javascript:openUpdate("+row.id+")'>设置分成</a>";
+                        var str= "<a href='javascript:updateAud("+row.id+")'>修改</a>    <a href='javascript:openUpdate("+row.id+")'>设置分成</a>";
+
+                    if(row.status==1){
+
+                        return str +"&nbsp;&nbsp; <a href='javascript:updatestop("+row.id+")'><font color='red'>禁用</font></a>";
+                    }else {
+                        return str;
+                    }
+
 
                     }}
             ]
         });
     }
 
+    function updatestop(id) {
+        $.ajax({
+            url:'/teacher/stop',
+            type:'post',
+            data:{
+                id:id
+            },
+            dataType:'json',
+            success:function(data){
+                //提示删除成功
+                bootbox.alert({
+                    size: "small",
+                    title: "<font color='red'>确认信息</font>",
+                    message: "确定要禁用吗？",
+                    buttons: {
+                        ok: {
+                            label: '确定',
+                            className: 'btn-success'
+                        }
+                    },
+                    callback: function(){}
+                })
+                //刷新表格
+                searchAuditor();
+            }
+        })
+
+
+    }
 </script>
 </html>

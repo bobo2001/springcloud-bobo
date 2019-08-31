@@ -15,5 +15,9 @@ public interface TeacherService {
     Lecturer findAudById(Integer id);
 
 
-    void updateAudit(Integer id);
+    void updateAudit(Lecturer lecturer);
+
+    HashMap<String, Object> findLecturer2(Lecturer lecturer);
+
+    void stop(Integer id);
 }

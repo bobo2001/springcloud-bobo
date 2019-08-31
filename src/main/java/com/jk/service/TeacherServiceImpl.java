@@ -52,9 +52,25 @@ public class TeacherServiceImpl implements TeacherService {
     }
 
     @Override
-    public void updateAudit(Integer id) {
+    public void updateAudit(Lecturer lecturer) {
 
-        teacherDao.updateAudit(id);
+        teacherDao.updateAudit(lecturer);
+    }
+
+    @Override
+    public HashMap<String, Object> findLecturer2(Lecturer lecturer) {
+        HashMap<String, Object> hashMap = new HashMap<>();
+        hashMap.put("lecturer",lecturer);
+        int count = teacherDao.findLecturerCount2(hashMap);
+        List<Lecturer> list = teacherDao.findLecturerList2((lecturer.getPage()-1)*lecturer.getRows(),lecturer.getRows(),lecturer);
+        hashMap.put("total", count);
+        hashMap.put("rows", list);
+        return hashMap;
+    }
+
+    @Override
+    public void stop(Integer id) {
+        teacherDao.stop(id);
     }
 
 

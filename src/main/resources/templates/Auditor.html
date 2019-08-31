@@ -110,8 +110,8 @@
                             data:$("#myForm").serialize(),
                             success:function(data){
                                 //刷新表格
-                                $('#myTables').bootstrapTable('refresh');
-
+                               // $('#myTables').bootstrapTable('refresh');
+                                searchAuditor();
                             }
                         });
                     }
@@ -172,15 +172,15 @@
                     label: "修改",
                     className: 'btn-info',
                     callback: function(){
-                        debugger
+
                         $.ajax({
                             url:'/teacher/updateAudit',
                             type:'post',
                             data:$("#myForm").serialize(),
                             success:function(data){
                                 //刷新表格
-                                $('#myTables').bootstrapTable('refresh');
-
+                               // $('#myTables').bootstrapTable('refresh');
+                                searchAuditor();
                             }
                         });
                     }

@@ -70,4 +70,43 @@ public class TeacherController {
         }
     }
 
+    @RequestMapping("toUpdateAud")
+    public String toUpdateAud(){
+
+        return "UpdateAud";
+    }
+
+    @RequestMapping("findAudById")
+    @ResponseBody
+    public Lecturer findAudById(Integer id){
+        System.out.println("id = [" + id + "]");
+        return teacherService.findAudById(id);
+    }
+
+   //修改审核
+    @RequestMapping("updateAudit")
+    @ResponseBody
+    public Boolean updateAudit(Lecturer lecturer){
+        try{
+            teacherService.updateAudit(lecturer);
+            return true;
+        }catch (Exception e){
+          e.printStackTrace();
+          return false;
+        }
+
+    }
+
+    //状态
+    @RequestMapping("stop")
+    @ResponseBody
+    public Boolean stop(Integer id) {
+        try {
+            teacherService.stop(id);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 }

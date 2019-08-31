@@ -58,4 +58,30 @@
 
          </where>
     </sql>
+
+    <select id="findLecturerCount2" resultType="int" parameterType="com.jk.pojo.Lecturer">
+        select count(*) from t_lecturer
+       <!-- <include refid="lectSql2"></include>-->
+    </select>
+
+    <!--讲师列表-->
+    <select id="findLecturerList2" resultType="com.jk.pojo.Lecturer" >
+        select * from t_lecturer
+        <!--<include refid="lectSql2"></include>-->
+        limit #{page},#{rows}
+    </select>
+
+    <sql id="lectSql2">
+        <where>
+            <if test="lecturer.teacheName!=null and lecturer.teacheName!=''">
+                and teacheName = #{lecturer.teacheName}
+            </if>
+            <if test="lecturer.phone!=null and lecturer.phone!=''">
+                and phone = #{lecturer.phone}
+            </if>
+            <if test="lecturer.status!= -1 ">
+                and phone = #{lecturer.status}
+            </if>
+        </where>
+    </sql>
 </mapper>
