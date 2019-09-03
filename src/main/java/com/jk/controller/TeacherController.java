@@ -26,6 +26,13 @@ public class TeacherController {
         return teacherService.findLecturer(lecturer);
     }
     //讲师列表
+    @RequestMapping("findLecturer2")
+    @ResponseBody
+    public HashMap<String,Object> findLecturer2(Lecturer lecturer){
+
+        return teacherService.findLecturer2(lecturer);
+    }
+    //讲师列表
     @RequestMapping("toLect")
     public String toLect(){
 
