@@ -1,5 +1,6 @@
 package com.jk.service;
 
+import com.jk.pojo.WzxBpcountBean;
 import com.jk.pojo.WzxRoleBean;
 import com.jk.pojo.WzxTreeBean;
 import com.jk.pojo.WzxUserBean;
@@ -33,4 +34,8 @@ public interface WzxService {
     void upPass(WzxUserBean wzxUserBean);
 ////查询账号密码
     WzxUserBean findUserAccount(Integer id);
+//课程点击查询
+    List<WzxBpcountBean> findBpcount(WzxBpcountBean wzxBpcountBean);
+//用户角色回显
+    WzxRoleBean findRoleUser(Integer id);
 }

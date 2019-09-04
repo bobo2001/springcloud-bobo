@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>官网首页</title>
+</head>
+<link rel="stylesheet" href="/bootstrap/bootstrap-datetimepicker/css/bootstrap-datetimepicker.css">
+<link rel="stylesheet" href="/bootstrap/bootstrap3/css/bootstrap.css">
+<link rel="stylesheet" href="/bootstrap/bootstrap-table/bootstrap-table.css">
+<link rel="stylesheet" href="/bootstrap/bootstrap-fileinput/css/fileinput.css">
+<link rel="stylesheet" href="/bootstrap/bootstrap-treeview/bootstrap-treeview.min.css">
+<link rel="stylesheet" href="/bootstrap/bootStrap-addTabs/bootstrap.addtabs.css">
+<script src="/bootstrap/easyui1.5/jquery.min.js"></script>
+<script src="/bootstrap/bootstrap3/js/bootstrap.js"></script>
+<script src="/bootstrap/bootstrap-table/bootstrap-table.js"></script>
+<script src="/bootstrap/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
+<script src="/bootstrap/bootbox/bootbox.all.min.js"></script>
+<script src="/bootstrap/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js"></script>
+<script src="/bootstrap/bootstrap-datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js"></script>
+<script src="/bootstrap/bootstrap-fileinput/js/fileinput.js"></script>
+<script src="/bootstrap/bootstrap-fileinput/js/locales/zh.js"></script>
+<script src="/bootstrap/bootstrap-treeview/bootstrap-treeview.min.js"></script>
+<script src="/bootstrap/bootStrap-addTabs/bootstrap.addtabs.min.js"></script>
+
+<script src="/js/incubator-echarts-4.1.0/dist/echarts.js"></script>
+<body>
+
+<div id="toolbar">
+    <form class="form-inline">
+        <div class="form-group">
+            <label for="name">课程名称</label>
+            <input type="text" class="form-control" id="name" name="name" placeholder="">
+        </div>
+        <button type="button" onclick="searchUser()" class="btn btn-success glyphicon glyphicon-search">搜索</button>
+        <button type="button" onclick="clearss()" class="btn btn-warning ">清空查询</button>
+
+    </form>
+</div>
+<table id="BpTable"></table>
+</body>
+<script type="text/javascript">
+    $(function () {
+        initMyTable();//初始化表格
+    })
+    //清空搜索
+    function clearss() {
+        $("input[name='name']").val("");
+        searchUser()
+    }
+    //刷新表格
+    function searchUser() {
+        $('#BpTable').bootstrapTable('refresh');
+    }
+    //初始化表格
+    function initMyTable() {
+        $('#BpTable').bootstrapTable({
+            toolbar: "#toolbar",
+            url: '../findBpCount',
+            pagination: true, //是否展示分页
+            pageList: [2, 4, 6, 50],//分页组件
+            pageNumber: 1,
+            pageSize: 2,//默认每页条数
+            sidePagination: 'client',//分页方式：client客户端分页，server服务端分页（*
+            striped: true,//斑马线
+            queryParams: function () {
+                return {
+                  name:$("#name").val()
+
+                };
+            },
+            columns: [
+                {field: 'abc', checkbox: true},
+                {field: 'id', title: '序号'},
+                {field: 'name', title: '课程名称'},
+                {field: 'count', title: '播放次数'},
+                {field: 'gmt_time1', title: '时间'}
+
+            ]
+        })
+    }
+
+
+</script>

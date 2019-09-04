@@ -10,6 +10,14 @@ public class PageControllerWzx {
     public  String  toMain(){
         return "Wzxmain";
     }
+    @RequestMapping("toUpRole")
+    public  String  toUpRole(){
+        return "WzxUpRole";
+    }
+    @RequestMapping("BpCount")
+    public  String  toBpCount(){
+        return "WzxBpCount";
+    }
     //修改密码
     @RequestMapping("toPassUp")
     public  String  toPassUp(){

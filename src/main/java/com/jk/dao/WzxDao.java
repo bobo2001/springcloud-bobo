@@ -1,5 +1,6 @@
 package com.jk.dao;
 
+import com.jk.pojo.WzxBpcountBean;
 import com.jk.pojo.WzxRoleBean;
 import com.jk.pojo.WzxTreeBean;
 import com.jk.pojo.WzxUserBean;
@@ -41,4 +42,8 @@ public interface WzxDao {
 //查询账号密码
 
     WzxUserBean findUserAccount(Integer id);
+
+    List<WzxBpcountBean> findBpcount(WzxBpcountBean wzxBpcountBean);
+
+  WzxRoleBean findRoleUser(Integer id);
 }

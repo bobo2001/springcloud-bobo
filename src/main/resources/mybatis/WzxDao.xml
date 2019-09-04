@@ -47,4 +47,27 @@
         select * from wzx_user wu where id=#{id}
 
     </select>
+    <!--课程点击查询-->
+    <select id="findBpcount" parameterType="com.jk.pojo.WzxBpcountBean" resultType="com.jk.pojo.WzxBpcountBean">
+
+        select wb.* from wzx_bpcount wb
+     LEFT JOIN wjf_course wc on wc.name=wb.name
+<include refid="WbWhere"></include>
+     order by wb.count  desc
+    </select>
+    <sql id="WbWhere">
+      <where>
+         <if test="name !=null and name != '' ">
+             and wb.name like '%${name}%'
+         </if>
+
+        </where>
+    </sql>
+    <!--用户角色回显-->
+    <select id="findRoleUser" parameterType="int" resultType="com.jk.pojo.WzxRoleBean">
+        select wr.* from wzx_role_user  wru
+LEFT JOIN wzx_user wu on wu.id=wru.user_id
+LEFT JOIN wzx_role wr on wr.id=wru.role_id
+where wru.user_id =#{id}
+    </select>
 </mapper>

@@ -1,19 +1,24 @@
 package com.jk.controller;
 
+import com.jk.pojo.WzxBpcountBean;
 import com.jk.pojo.WzxRoleBean;
 import com.jk.pojo.WzxTreeBean;
 import com.jk.pojo.WzxUserBean;
 import com.jk.service.WzxService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
 public class ControllerWzx {
     @Autowired
     private WzxService wzxService;
+    SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 
     @RequestMapping("WzxfindTree")
     public List<WzxTreeBean> findTree() {
@@ -127,4 +132,23 @@ public WzxRoleBean findRoleById(Integer id) {
             return false;
         }
     }
+    //课程点击次数查询
+    //findBpCount
+    @RequestMapping("findBpCount")
+    public List<WzxBpcountBean> findBpcount(WzxBpcountBean wzxBpcountBean) {
+        List<WzxBpcountBean> bpcount = wzxService.findBpcount(wzxBpcountBean);
+        List<WzxBpcountBean> bpcountList = new ArrayList<>();
+        for(int i=0;i<bpcount.size();i++){
+            WzxBpcountBean wzxBpcountBean1 = bpcount.get(i);
+            wzxBpcountBean1.setGmt_time1(formatter.format(wzxBpcountBean1.getGmt_time()));
+            bpcountList.add(wzxBpcountBean1);
+        }
+        return bpcountList;
+    }
+    //查询用户角色 findRoleUser
+    @RequestMapping("findRoleUser")
+   public WzxRoleBean findRoleUser(Integer id){
+        return wzxService.findRoleUser(id);
+    }
+
 }

@@ -1,6 +1,7 @@
 package com.jk.service;
 
 import com.jk.dao.WzxDao;
+import com.jk.pojo.WzxBpcountBean;
 import com.jk.pojo.WzxRoleBean;
 import com.jk.pojo.WzxTreeBean;
 import com.jk.pojo.WzxUserBean;
@@ -94,6 +95,16 @@ public class WzxServiceImpl implements WzxService{
     @Override
     public WzxUserBean findUserAccount(Integer id) {
         return wzxDao.findUserAccount(id);
+    }
+//课程点击查询
+    @Override
+    public List<WzxBpcountBean> findBpcount(WzxBpcountBean wzxBpcountBean) {
+        return wzxDao.findBpcount(wzxBpcountBean);
+    }
+//用户角色
+    @Override
+    public WzxRoleBean findRoleUser(Integer id) {
+        return wzxDao.findRoleUser(id);
     }
 
 

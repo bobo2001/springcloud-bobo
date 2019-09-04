@@ -147,7 +147,7 @@
                     field: 'wzx', title: '操作', formatter: function (value, row, index) {
                         return '<button type="button" class="btn btn-success" onclick="editUser(' + row.id + ')" class="btn btn-info">修改</button>' +
                             '<button type="button" class="btn btn-danger" onclick="delUser(' + row.id + ')" class="btn btn-info">删除</button>' +
-                            '<button type="button" class="btn btn-warning" onclick="updrole(' + row.id + ')" class="btn btn-info">设置角色</button>' +
+                           /* '<button type="button" class="btn btn-warning" onclick="updrole(' + row.id + ')" class="btn btn-info">设置角色</button>' +*/
                             '<button type="button" class="btn btn-success"  onclick="updpasw(' + row.id + ')" class="btn btn-info">修改密码</button>';
                     }
                 }
@@ -232,37 +232,54 @@
             },
             callback: function (result) {
                 if (result) {
-                    $.ajax({
-                        url: "../deleteUser",
-                        type: "post",
-                        data: {id: id},
-                        success: function () {
-                            //提示删除成功
-                            bootbox.alert({
-                                size: "small",
-                                title: "提示",
-                                message: "删除成功!",
-                                buttons: {
-                                    ok: {
-                                        label: '确定',
-                                        className: 'btn-success'
-                                    }
-                                },
-                                callback: function () {
+                    if(id==1){
+                        bootbox.alert({
+                            size: "small",
+                            title: "提示",
+                            message: "管理员不能被删除",
+                            buttons: {
+                                ok: {
+                                    label: '确定',
+                                    className: 'btn-success'
                                 }
-                            })
-                            //刷新表格
-                            searchUser();
-                        }
-                    })
+                            },
+                            callback: function () {
+                                searchUser();
+                            }
+                        })
+                    }else{
+                        $.ajax({
+                            url: "../deleteUser",
+                            type: "post",
+                            data: {id: id},
+                            success: function () {
+                                //提示删除成功
+                                bootbox.alert({
+                                    size: "small",
+                                    title: "提示",
+                                    message: "删除成功!",
+                                    buttons: {
+                                        ok: {
+                                            label: '确定',
+                                            className: 'btn-success'
+                                        }
+                                    },
+                                    callback: function () {
+                                        searchUser();
+                                    }
+                                })
+                                //刷新表格
+                                searchUser();
+                            }
+                        })
+                    }
+
                 }
             }
         })
     }
 
-    function updrole(id) {
-        alert("修改角色" + id);
-    }
+
 
     //修改密码
     var res;
