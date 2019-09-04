@@ -124,4 +124,59 @@ public class ZhuanQuServiceImpl implements ZhuanQuService{
     public TouBuBean EditTouBuById(String id) {
         return zhuanQuDao.EditTouBuById(id);
     }
+
+    @Override
+    public void shangjia(Integer id) {
+        zhuanQuDao.shangjia(id);
+    }
+
+    @Override
+    public void xiajia(Integer id) {
+        zhuanQuDao.xiajia(id);
+    }
+
+    @Override
+    public void zhuanqushangjia(Integer id) {
+        zhuanQuDao.zhuanqushangjia(id);
+    }
+
+    @Override
+    public void zhuanquxiajia(Integer id) {
+        zhuanQuDao.zhuanquxiajia(id);
+    }
+
+    @Override
+    public void dibushangjia(Integer id) {
+        zhuanQuDao.dibushangjia(id);
+    }
+
+    @Override
+    public void dibuxiajia(Integer id) {
+        zhuanQuDao.dibuxiajia(id);
+    }
+
+    @Override
+    public void toubushangjia(Integer id) {
+        zhuanQuDao.toubushangjia(id);
+    }
+
+    @Override
+    public void toubuxiajia(Integer id) {
+        zhuanQuDao.toubuxiajia(id);
+    }
+
+    @Override
+    public void lianjieshangjia(Integer id) {
+        zhuanQuDao.lianjieshangjia(id);
+    }
+
+    @Override
+    public void lianjiexiajia(Integer id) {
+        zhuanQuDao.lianjiexiajia(id);
+    }
+
+    @Override
+    public void delShouYeByIds(Integer[] ids) {
+        zhuanQuDao.delShouYeByIds(ids);
+    }
 }

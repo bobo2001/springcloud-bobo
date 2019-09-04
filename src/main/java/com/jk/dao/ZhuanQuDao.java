@@ -58,4 +58,26 @@ public interface  ZhuanQuDao {
     void saveTouBu(TouBuBean touBuBean);
     @Select("select * from sh_toubu where id=#{value}")
     TouBuBean EditTouBuById(String id);
+    @Update("update sh_shouye set status = 0 where id =#{id}")
+    void shangjia(Integer id);
+    @Update("update sh_shouye set status = 1 where id =#{id}")
+    void xiajia(Integer id);
+    @Update("update sh_zhuanqu set status = 1 where id =#{id}")
+    void zhuanqushangjia(Integer id);
+    @Update("update sh_zhuanqu set status = 0 where id =#{id}")
+    void zhuanquxiajia(Integer id);
+    @Update("update sh_dibu set status = 1 where id =#{id}")
+    void dibushangjia(Integer id);
+    @Update("update sh_dibu set status = 0 where id =#{id}")
+    void dibuxiajia(Integer id);
+    @Update("update sh_toubu set status = 1 where id =#{id}")
+    void toubushangjia(Integer id);
+    @Update("update sh_toubu set status = 0 where id =#{id}")
+    void toubuxiajia(Integer id);
+    @Update("update sh_lianjie set status = 1 where id =#{id}")
+    void lianjieshangjia(Integer id);
+    @Update("update sh_lianjie set status = 0 where id =#{id}")
+    void lianjiexiajia(Integer id);
+
+    void delShouYeByIds(Integer[] ids);
 }

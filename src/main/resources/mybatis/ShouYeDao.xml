@@ -31,4 +31,11 @@
             #{item}
         </foreach>
     </delete>
+    <!--首页删除 delShouYeByIds -->
+    <delete id="delShouYeByIds" parameterType="int" >
+        delete from sh_shouye where id in
+        <foreach collection="array" item="item" index="index" separator="," open="(" close=")">
+            #{item}
+        </foreach>
+    </delete>
 </mapper>

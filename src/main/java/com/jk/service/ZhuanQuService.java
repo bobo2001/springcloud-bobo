@@ -50,4 +50,26 @@ public interface ZhuanQuService {
     void saveTouBu(TouBuBean touBuBean);
 
     TouBuBean EditTouBuById(String id);
+
+    void shangjia(Integer id);
+
+    void xiajia(Integer id);
+
+    void zhuanqushangjia(Integer id);
+
+    void zhuanquxiajia(Integer id);
+
+    void dibushangjia(Integer id);
+
+    void dibuxiajia(Integer id);
+
+    void toubushangjia(Integer id);
+
+    void toubuxiajia(Integer id);
+
+    void lianjieshangjia(Integer id);
+
+    void lianjiexiajia(Integer id);
+
+    void delShouYeByIds(Integer[] ids);
 }

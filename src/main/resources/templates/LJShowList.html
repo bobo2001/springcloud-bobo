@@ -23,7 +23,7 @@
 </head>
 <body>
 <div id="toolbar">
-    <form class="form-inline">
+    <!--<form class="form-inline">
         <div class="form-group">
             <label for="name">专区名称</label>
             <input type="text" class="form-control" id= "name1" placeholder="请输入名称">
@@ -31,7 +31,7 @@
         <button type="button" onclick="searchUser()" class="btn btn-success glyphicon glyphicon-search">搜索</button>
         <button type="button" onclick="clearss()" class="btn btn-warning ">清空查询</button>
 
-    </form>
+    </form>-->
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-danger" onclick="delLianJie()">删除</button>
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button type="button" onclick="openAddLianJie()" class="btn btn-info glyphicon glyphicon-plus">新增</button>
 </div>
@@ -139,17 +139,49 @@
                 }},
             {field:'123',title:'操作',formatter:function(value,row,index){
                     /*return '<a href="javascript:delOrder('+row.id+')">删除</a>  |  <a href="javascript:update('+row.id+')">修改</a>'*/
-                    return '<button type="button" class="btn btn-success" onclick="editZhuanQu('+row.id+')" class="btn btn-info">修改</button>' +
-                        '<button type="button" class="btn btn-danger" onclick="delLianJie('+row.id+')" class="btn btn-info">删除</button>' ;
+                  /*  return '<button type="button" class="btn btn-success" onclick="editZhuanQu('+row.id+')" class="btn btn-info">修改</button>' +
+                        '<button type="button" class="btn btn-danger" onclick="delLianJie('+row.id+')" class="btn btn-info">删除</button>' ;*/
                         /*'<button type="button" class="btn btn-warning" onclick="updrole('+row.id+')" class="btn btn-info">禁用</button>' +
                         '<button type="button" class="btn btn-success"  onclick="updpasw('+row.id+')" class="btn btn-info">专区课程</button>';*/
-                }}
+                    if(row.status == 0){
+                        return '<button type="button" class="btn btn-danger" onclick="delLianJie('+row.id+')" class="btn btn-info">删除</button>' + '<button type="button" class="btn btn-warning" onclick="shangjia('+row.id+')" class="btn btn-info">禁用</button>' + '<button type="button" class="btn btn-success"  onclick="editZhuanQu('+row.id+')" class="btn btn-info">修改</button>';
+                    }else{
+                        return '<button type="button" class="btn btn-danger" onclick="delLianJie('+row.id+')" class="btn btn-info">删除</button>' + '<button type="button" class="btn btn-warning" onclick="xiajia('+row.id+')" class="btn btn-info">正常</button>' + '<button type="button" class="btn btn-success"  onclick="editZhuanQu('+row.id+')" class="btn btn-info">修改</button>';
+                    }
+            }}
 
         ]
     })
-    function ww() {
-        window.open ( "https://edu.roncoo.net/");
+    //上架 shenhe
+    function shangjia(id){
+        $.ajax({
+            url:'/zhuanqu/lianjieshangjia?id='+id,
+            type:'post',
+            data:{},
+            dataType:'json',
+            success:function(data){
+                if(data){
+                    $("#DiBuTable").bootstrapTable('refresh');
+                }
+            }
+        })
     }
+
+    //下架
+    function xiajia(id){
+        $.ajax({
+            url:'/zhuanqu/lianjiexiajia?id='+id,
+            type:'post',
+            data:{},
+            dataType:'json',
+            success:function(data){
+                if(data){
+                    $("#DiBuTable").bootstrapTable('refresh');
+                }
+            }
+        })
+    }
+
     //批量删除
     function delLianJie(){
         var arr = $("#LianJieTable").bootstrapTable("getSelections");

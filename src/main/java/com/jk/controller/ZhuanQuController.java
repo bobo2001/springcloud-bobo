@@ -32,7 +32,31 @@ public class ZhuanQuController {
     public List<ZhuanQuBean> findZhuanQuList(){
         return zhuanQuService.findZhuanQuList();
     }
+    //上架
+    @RequestMapping("zhuanqushangjia")
+    @ResponseBody
+    public Boolean zhuanqushangjia(Integer id){
+        try {
+            zhuanQuService.zhuanqushangjia(id);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 
+    //下架
+    @RequestMapping("zhuanquxiajia")
+    @ResponseBody
+    public Boolean zhuanquxiajia(Integer id){
+        try {
+            zhuanQuService.zhuanquxiajia(id);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
     //跳转专区新增
     @RequestMapping("toAddZhuanQu")
     public String toAddZhuanQu(){
@@ -80,6 +104,31 @@ public class ZhuanQuController {
     @RequestMapping("ToTouBuhowList")
     public String ToTouBuhowList(){
         return "TouBuhowList";
+    }
+    //上架
+    @RequestMapping("toubushangjia")
+    @ResponseBody
+    public Boolean toubushangjia(Integer id){
+        try {
+            zhuanQuService.toubushangjia(id);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    //下架
+    @RequestMapping("toubuxiajia")
+    @ResponseBody
+    public Boolean toubuxiajia(Integer id){
+        try {
+            zhuanQuService.toubuxiajia(id);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
     }
     //头部删除    delTouBuByIds
     @RequestMapping("delTouBuByIds")
@@ -133,6 +182,43 @@ public class ZhuanQuController {
     public List<ShouYeBean> findShouYeList(){
         return zhuanQuService.findShouYeList();
     }
+    //正常
+    @RequestMapping("shangjia")
+    @ResponseBody
+    public Boolean shangjia(Integer id){
+        try {
+            zhuanQuService.shangjia(id);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    //禁用
+    @RequestMapping("xiajia")
+    @ResponseBody
+    public Boolean xiajia(Integer id){
+        try {
+            zhuanQuService.xiajia(id);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+    //首页删除    delShouYeByIds
+    @RequestMapping("delShouYeByIds")
+    @ResponseBody
+    public Boolean delShouYeByIds(Integer[] ids){
+        try {
+            zhuanQuService.delShouYeByIds(ids);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
     @RequestMapping("upload")
     @ResponseBody
     public String 	upload(MultipartFile img , HttpServletRequest request){
@@ -170,7 +256,31 @@ public class ZhuanQuController {
     public List<DiBuBean> findDiBuList(){
         return zhuanQuService.findDiBuList();
     }
+    //上架
+    @RequestMapping("dibushangjia")
+    @ResponseBody
+    public Boolean dibushangjia(Integer id){
+        try {
+            zhuanQuService.dibushangjia(id);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 
+    //下架
+    @RequestMapping("dibuxiajia")
+    @ResponseBody
+    public Boolean dibuxiajia(Integer id){
+        try {
+            zhuanQuService.dibuxiajia(id);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
     //跳转底部新增
     @RequestMapping("toAddDiBu")
     public String toAddDiBu(){
@@ -229,6 +339,31 @@ public class ZhuanQuController {
             list1.add(lianJieBean);
         }
         return list1;
+    }
+    //上架
+    @RequestMapping("lianjieshangjia")
+    @ResponseBody
+    public Boolean lianjieshangjia(Integer id){
+        try {
+            zhuanQuService.lianjieshangjia(id);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    //下架
+    @RequestMapping("lianjiexiajia")
+    @ResponseBody
+    public Boolean lianjiexiajia(Integer id){
+        try {
+            zhuanQuService.lianjiexiajia(id);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
     //跳转链接新增

@@ -203,10 +203,10 @@
             {field:'paixu',title:'排序'},
             {field:'status',title:'状态',formatter:function (value,row,index){
                     var stu = "";
-                    if (row.status == 1){
+                    if (value == 1){
                         stu = "正常";
                     }
-                    if(row.status == 0){
+                    if(value == 0){
                         stu = "<font color='#00bfff'>异常</font>";
                     }
                     return stu;
@@ -214,15 +214,53 @@
             {field:'123',title:'操作',formatter:function(value,row,index){
                     /*return '<a href="javascript:delOrder('+row.id+')">删除</a>  |  <a href="javascript:update('+row.id+')">修改</a>'*/
                   /* '<button type="button" class="btn btn-success" onclick="editUser('+row.id+')" class="btn btn-info">修改</button>' +*/
-                    return    '<button type="button" class="btn btn-danger" onclick="delOrder('+row.id+')" class="btn btn-info">删除</button>' ;
-                       /* '<button type="button" class="btn btn-warning" onclick="updrole('+row.id+')" class="btn btn-info">禁用</button>' +
-                        '<button type="button" class="btn btn-success"  onclick="updpasw('+row.id+')" class="btn btn-info">专区课程</button>';*/
-                }}
+                   /* return    '<button type="button" class="btn btn-danger" onclick="delOrder('+row.id+')" class="btn btn-info">删除</button>' | '<button type="button" class="btn btn-warning" onclick="updrole('+row.id+')" class="btn btn-info">禁用</button>' ;*/
+                        /*'<button type="button" class="btn btn-success"  onclick="updpasw('+row.id+')" class="btn btn-info">专区课程</button>';*/
+
+                    if(row.status ==1){
+                        return '<button type="button" class="btn btn-danger" onclick="delOrder('+row.id+')" class="btn btn-info">删除</button>' + '<button type="button" class="btn btn-warning" onclick="shangjia('+row.id+')" class="btn btn-info">禁用</button>';
+                    }else{
+                        return '<button type="button" class="btn btn-danger" onclick="delOrder('+row.id+')" class="btn btn-info">删除</button>' + '<button type="button" class="btn btn-warning" onclick="xiajia('+row.id+')" class="btn btn-info">正常</button>' ;
+                    }
+
+            }}
 
         ]
     })
     function ww() {
         window.open ( "https://edu.roncoo.net/");
+    }
+    //上架 shenhe
+    function shangjia(id){
+
+        $.ajax({
+            url:'/zhuanqu/shangjia?id='+id,
+            type:'post',
+            data:{},
+            dataType:'json',
+            success:function(data){
+
+                if(data){
+                    $("#ShouYeTable").bootstrapTable('refresh');
+
+                }
+            }
+        })
+    }
+
+    //下架
+    function xiajia(id){
+        $.ajax({
+            url:'/zhuanqu/xiajia?id='+id,
+            type:'post',
+            data:{},
+            dataType:'json',
+            success:function(data){
+                if(data){
+                    $("#ShouYeTable").bootstrapTable('refresh');
+                }
+            }
+        })
     }
 
     //批量删除
@@ -266,7 +304,7 @@
                         }
                         alert(ids);
                         $.ajax({
-                            url:"/zhuanqu/delZhuanQuByIds",
+                            url:"/zhuanqu/delShouYeByIds",
                             type:"post",
                             data:{ids:ids},
                             success:function(){
