@@ -38,4 +38,6 @@ public interface TeacherDao {
 
     @Update("update t_lecturer set status=2 where id=#{id}")
     void stop(@Param("id") Integer id);
+
+    void deleteFen(@Param("ids") Integer[] ids);
 }

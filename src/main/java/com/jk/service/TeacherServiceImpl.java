@@ -73,5 +73,10 @@ public class TeacherServiceImpl implements TeacherService {
         teacherDao.stop(id);
     }
 
+    @Override
+    public void deleteFen(Integer[] ids) {
+        teacherDao.deleteFen(ids);
+    }
+
 
 }

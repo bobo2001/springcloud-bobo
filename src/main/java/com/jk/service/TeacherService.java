@@ -20,4 +20,6 @@ public interface TeacherService {
     HashMap<String, Object> findLecturer2(Lecturer lecturer);
 
     void stop(Integer id);
+
+    void deleteFen(Integer[] ids);
 }

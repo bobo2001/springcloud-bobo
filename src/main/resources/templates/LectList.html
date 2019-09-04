@@ -60,7 +60,7 @@
             <label>状态：</label>
             <select  id="status" class="form-control">
                 <option value="-1">全部</option>
-                <option value="1">成功</option>
+                <option value="1">正常</option>
                 <option value="2">禁用</option>
             </select>
         </div>
@@ -155,7 +155,10 @@
                     page: this.pageNumber,
                     rows: this.pageSize,
                     teacheName:$("#teacherName").val(),
-                    phone:$("#phone1").val()
+                    phone:$("#phone1").val(),
+                    status:$("#status").val()
+
+
                 };
             },
             columns:[
@@ -174,7 +177,7 @@
                 {field:"proportion",title:"分成比例"},
 
                 {field:"tool",title:"操作",formatter:function(value,row,index){
-                        var str= "<a href='javascript:updateAud("+row.id+")'>修改</a>    <a href='javascript:openUpdate("+row.id+")'>设置分成</a>";
+                        var str= "<a href='javascript:updateAud("+row.id+")'>修改</a>";
 
                     if(row.status==1){
 

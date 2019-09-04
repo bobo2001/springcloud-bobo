@@ -36,7 +36,10 @@
                 and phone = #{lecturer.phone}
             </if>
             <if test="lecturer.status!= -1 ">
-                and phone = #{lecturer.status}
+                and status = #{lecturer.status}
+            </if>
+            <if test="lecturer.audit!= -1 ">
+                and audit = #{lecturer.audit}
             </if>
         </where>
     </sql>
@@ -61,13 +64,13 @@
 
     <select id="findLecturerCount2" resultType="int" parameterType="com.jk.pojo.Lecturer">
         select count(*) from t_lecturer
-       <!-- <include refid="lectSql2"></include>-->
+       <include refid="lectSql2"></include>
     </select>
 
     <!--讲师列表-->
     <select id="findLecturerList2" resultType="com.jk.pojo.Lecturer" >
         select * from t_lecturer
-        <!--<include refid="lectSql2"></include>-->
+        <include refid="lectSql2"></include>
         limit #{page},#{rows}
     </select>
 
@@ -84,4 +87,12 @@
             </if>
         </where>
     </sql>
+
+    <delete id="deleteFen" parameterType="int">
+        delete from t_fenrun where id in(
+        <foreach collection="array" index="index" item="item" separator=",">
+            #{item}
+        </foreach>
+        )
+    </delete>
 </mapper>
