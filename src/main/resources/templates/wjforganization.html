@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <link rel="stylesheet" href="/bootstrap/bootstrap-datetimepicker/css/bootstrap-datetimepicker.css">
+    <link rel="stylesheet" href="/bootstrap/bootstrap3/css/bootstrap.css">
+    <link rel="stylesheet" href="/bootstrap/bootstrap-table/bootstrap-table.css">
+    <link rel="stylesheet" href="/bootstrap/bootstrap-fileinput/css/fileinput.css">
+    <link rel="stylesheet" href="/bootstrap/bootstrap-treeview/bootstrap-treeview.min.css">
+    <link rel="stylesheet" href="/bootstrap/bootStrap-addTabs/bootstrap.addtabs.css">
+    <script src="/bootstrap/easyui1.5/jquery.min.js"></script>
+    <script src="/bootstrap/bootstrap3/js/bootstrap.js"></script>
+    <script src="/bootstrap/bootstrap-table/bootstrap-table.js"></script>
+    <script src="/bootstrap/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
+    <script src="/bootstrap/bootbox/bootbox.all.min.js"></script>
+    <script src="/bootstrap/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js"></script>
+    <script src="/bootstrap/bootstrap-datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js"></script>
+    <script src="/bootstrap/bootstrap-fileinput/js/fileinput.js"></script>
+    <script src="/bootstrap/bootstrap-fileinput/js/locales/zh.js"></script>
+    <script src="/bootstrap/bootstrap-treeview/bootstrap-treeview.min.js"></script>
+    <script src="/bootstrap/bootStrap-addTabs/bootstrap.addtabs.min.js"></script>
+
+</head>
+<body>
+
+    <table class="table" id="myTable"></table>
+
+    <div id="toolbar">
+        <button type="button" onclick="openOrganization()" class="btn btn-info glyphicon glyphicon-plus">新增</button>
+    </div>
+
+</body>
+
+<script type="text/javascript">
+
+    $(function(){
+        initMyTable();//初始化表格
+    })
+
+
+    //新增弹框
+    var res;
+    function createAddContent(url) {
+        $.ajax({
+            url: url,
+            async: false,//同步
+            success: function (data) {
+                res = data;
+            }
+        });
+        return res;
+    }
+
+
+    //打开新增弹框
+    function openOrganization() {
+        bootbox.dialog({
+            title: '新增机构',
+            message: createAddContent("../wjf/tosaveorganization"),
+            closeButton: true,//是否显示关闭按钮
+            buttons: {
+                "success": {
+                    "label": "<i class='icon-ok'></i> 保存",
+                    "className": "btn-sm btn-success",
+                    "callback": function () {
+                        $.ajax({
+                            url: '../saveOrganization',
+                            type: 'post',
+                            data: $("#myForm").serialize(),
+                            success: function (data) {
+                                //刷新表格
+                                $('#myTable').bootstrapTable('refresh');
+                            }
+                        });
+                    }
+                },
+                "cancel": {
+                    "label": "<i class='icon-info'></i> 取消",
+                    "className": "btn-sm btn-danger",
+                    "callback": function () {
+
+                    }
+                }
+            }
+        });
+    }
+
+
+
+    //初始化表格
+    function initMyTable(){
+        //alert(1111)
+        $('#myTable').bootstrapTable({
+            toolbar:"#toolbar",
+            url:'../findOrganization',
+            pagination:true, //是否展示分页
+            pageList:[4,6,50],//分页组件
+            pageNumber:1,
+            pageSize:4,//默认每页条数
+            sidePagination:'client',//分页方式：client客户端分页，server服务端分页（*
+            striped:true,//斑马线
+            columns:[
+                {field:'abc',checkbox:true},
+                {field:'id',title:'序号'},
+                {field:'name',title:'机构名称'},
+                {field:'type',title:'机构类型'},
+                {field:'area',title:'机构地址'},
+                {field:'datatime',title:'创建时间'},
+                {field:'number',title:'机构人数'},
+                {field:'wj1f',title:'操作',formatter:function(value,row,index){
+                    return '<a href="javascript:edit('+row.id+')">修改</a> | <a href="javascript:del('+row.id+')">删除</a>';
+                }}
+            ]
+        })
+    }
+
+
+    function del(id) {
+        bootbox.confirm({
+            size: "small",
+            title: "提示",
+            message: "是否确认删除？",
+            buttons: {
+                confirm: {
+                    label: '确定',
+                    className: 'btn-success'
+                },
+                cancel: {
+                    label: '取消',
+                    className: 'btn-danger'
+                }
+            },
+            callback: function (result) {
+                if (result) {
+                    $.ajax({
+                        url: "../delOrganization",
+                        type: "post",
+                        data: {id: id},
+                        success: function () {
+                            //提示删除成功
+                            bootbox.alert({
+                                size: "small",
+                                title: "提示",
+                                message: "删除成功!",
+                                buttons: {
+                                    ok: {
+                                        label: '确定',
+                                        className: 'btn-success'
+                                    }
+                                },
+                                callback: function () {
+                                }
+                            })
+                            //刷新表格
+                            $('#myTable').bootstrapTable('refresh');
+                        }
+                    })
+                }
+            }
+        })
+    }
+
+
+    //打开修改弹框
+    function edit(id){
+        bootbox.dialog({
+            title:'修改课程',
+            message: createAddContent("../wjf/tosaveorganization"),
+            closeButton: true,//是否显示关闭按钮
+            buttons : {
+                "success" : {
+                    "label" : "<i class='icon-ok'></i> 保存",
+                    "className" : "btn-sm btn-success",
+                    "callback" : function() {
+                        $.ajax({
+                            url:'../saveOrganization',
+                            type:'post',
+                            data:$("#myForm").serialize(),
+                            success:function(data){
+                                //刷新表格
+                                $('#myTable').bootstrapTable('refresh');
+                                //searchUser();
+                            }
+                        });
+                    }
+                },
+                "cancel" : {
+                    "label" : "<i class='icon-info'></i> 取消",
+                    "className" : "btn-sm btn-danger",
+                    "callback" : function() {
+                    }
+                }
+            }
+        });
+        //回显数据
+        $.ajax({
+            url:'../findOrganizationById',
+            type:'post',
+            data:{id:id},
+            success:function(data){
+                alert(data.name);
+                //initgrade();
+                //initschool();
+                $("#id").val(data.id);
+                $("#name").val(data.name);
+                $("#type").val(data.type);
+                $("#area").val(data.area);
+                $("#datatime").val(data.datatime);
+                $("#number").val(data.number);
+            }
+        })
+    }
+
+</script>
+</html>

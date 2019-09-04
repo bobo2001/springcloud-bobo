@@ -74,7 +74,19 @@
                     }
                     return standordown;
                 }},
-                {field:'audit',title:'审核状况'},
+                {field:'audit',title:'审核状况',formatter:function(value,row,index){
+                        var audit = "";
+                        if(row.audit == 0){
+                            audit = "<font color='red'>待审核</font>";
+                        }
+                        if(row.audit == 1){
+                            audit = "<font color='#ffd700'>审核中</font>";
+                        }
+                        if(row.audit == 2){
+                            audit = "<font color='green'>审核通过</font>";
+                        }
+                        return audit;
+                }},
                 {field:'status',title:'状态',formatter:function(value,row,index){
                     var status = "";
                     if(row.status == 1){
@@ -90,15 +102,34 @@
                         return "<img src='"+value+"' width='50px' height='50px'/>";
                 }},*/
                 {field:'wj1f',title:'操作',formatter:function(value,row,index){
-                    if(row.standordown == 0){
-                        return '<a href="javascript:edit('+row.id+')">修改</a> | <a href="javascript:shangjia('+row.id+')">上架</a> | <a href="javascript:shenhe(\'+row.id+\')">审核</a>';
+                    if(row.standordown == 0 && row.audit == 0){
+                        return '<a href="javascript:edit('+row.id+')">修改</a> | <a href="javascript:shangjia('+row.id+')">上架</a> | <a href="javascript:shenhe('+row.id+','+row.audit+')">审核</a>';
                     }else{
-                        return '<a href="javascript:edit('+row.id+')">修改</a> | <a href="javascript:xiajia('+row.id+')">下架</a> | <a href="javascript:shenhe(\'+row.id+\')">审核</a>';
+                        return '<a href="javascript:edit('+row.id+')">修改</a> | <a href="javascript:xiajia('+row.id+')">下架</a> | <a href="javascript:shenhe('+row.id+','+row.audit+')">审核</a>';
                     }
                 }}
             ]
         })
     }
+
+
+    //审核
+    function shenhe(id,audit) {
+        var stu = null;
+        if (audit == 0) {
+            stu = 1;
+        }else if(audit == 1){
+            stu = 2;
+        }else if(audit == 2){
+            stu = '审核通过';
+        }
+
+        $.post('../shenhe',{id:id,audit:stu},function () {
+            $("#myTable").bootstrapTable('refresh');
+        })
+    }
+
+
 
     //领课
     function lingke(id) {
@@ -165,7 +196,7 @@
         //location.href = "/wjf/towjfupdcourse";
         bootbox.dialog({
             title:'详细信息',
-            message: createAddContent("../wjf/tonamelist"),
+            message: createAddContent("../wjf/toupdaudit"),
             closeButton: true,//是否显示关闭按钮
             buttons : {
                 /*"success" : {
@@ -194,7 +225,7 @@
         });
         //回显数据
         $.ajax({
-            url:'../findCourseById',
+            url:'../findAuditById',
             type:'post',
             data:{id:id},
             success:function(data){
@@ -219,6 +250,8 @@
     }
 
 
+
+    //上架 shenhe
     function shangjia(id){
         $.ajax({
             url:'../shangjia?id='+id,
@@ -233,7 +266,7 @@
         })
     }
 
-
+    //下架
     function xiajia(id){
         $.ajax({
             url:'../xiajia?id='+id,
@@ -264,7 +297,7 @@
     function edit(id){
         bootbox.dialog({
             title:'修改课程',
-            message: createAddContent("../wjf/towjfupdcourse"),
+            message: createAddContent("../wjf/toupdaudit"),
             closeButton: true,//是否显示关闭按钮
             buttons : {
                 "success" : {
@@ -272,7 +305,7 @@
                     "className" : "btn-sm btn-success",
                     "callback" : function() {
                         $.ajax({
-                            url:'../addCourse',
+                            url:'../updAudit',
                             type:'post',
                             data:$("#myForm").serialize(),
                             success:function(data){
@@ -293,7 +326,7 @@
         });
         //回显数据
         $.ajax({
-            url:'../findCourseById',
+            url:'../findAuditById',
             type:'post',
             data:{id:id},
             success:function(data){

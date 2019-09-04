@@ -49,7 +49,23 @@ public class WjfController {
         return "wjftypelist";
     }
 
+    //机构列表
+    @RequestMapping("towjforganization")
+    public String towjforganization(){
+        return "wjforganization";
+    }
 
+    //新增机构
+    @RequestMapping("tosaveorganization")
+    public String tosaveorganization(){
+        return "saveorganization";
+    }
+
+    //审核弹框
+    @RequestMapping("toupdaudit")
+    public String toupdaudit(){
+        return "updaudit";
+    }
 
 
 }

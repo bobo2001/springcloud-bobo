@@ -22,8 +22,6 @@
     <script src="/bootstrap/bootstrap-treeview/bootstrap-treeview.min.js"></script>
     <script src="/bootstrap/bootStrap-addTabs/bootstrap.addtabs.min.js"></script>
 
-
-
 </head>
 <body>
     <table class="table" id="myTable"></table>
@@ -53,6 +51,7 @@
                 {field:'name',title:'课程名称',formatter:function(value,row,index){
                     return '<a href="javascript:www('+row.id+')">'+value+'</a> <br> <font color="black">讲师:【</font><a href="javascript:fff('+row.id+')">领课</a><font color="black">】</font>';
                 }},
+                {field:'organizationname',title:'所属机构'},
                 {field:'type',title:'课程分类'},
                 {field:'charge',title:'是否收费',formatter:function(value,row,index){
                         var charge = "";

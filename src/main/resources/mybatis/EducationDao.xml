@@ -2,7 +2,8 @@
 <mapper namespace="com.jk.dao.EducationDao">
 
     <select id="findCourse" resultType="com.jk.pojo.WjfCourseBean">
-        select * from wjf_course
+        SELECT c.*,o.name as organizationname FROM wjf_course c
+          LEFT JOIN wjf_organization o on c.organizationid = o.id
     </select>
 
     <select id="findAudit" resultType="com.jk.pojo.WjfAuditBean">

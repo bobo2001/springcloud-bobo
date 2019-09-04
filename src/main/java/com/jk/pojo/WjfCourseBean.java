@@ -25,6 +25,9 @@ public class WjfCourseBean {
 
     private String detail;//简介
 
+    private Integer organizationid;
+
+    private String organizationname;
 
 
 }

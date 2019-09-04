@@ -1,9 +1,6 @@
 package com.jk.service;
 
-import com.jk.pojo.WjfAuditBean;
-import com.jk.pojo.WjfCourseBean;
-import com.jk.pojo.WjfPersonalDetailsBean;
-import com.jk.pojo.WjfTree;
+import com.jk.pojo.*;
 
 import java.util.List;
 
@@ -28,5 +25,25 @@ public interface EducationService {
     WjfPersonalDetailsBean lingke(Integer id);
 
 
+    List<WjfOrganizationBean> findOrganization();
+
+
+    Boolean saveOrganization(WjfOrganizationBean wjfOrganizationBean);
+
+    WjfAuditBean findAuditById(Integer id);
+
+    WjfOrganizationBean findOrganizationById(Integer id);
+
+
+    void updOrganization(WjfOrganizationBean wjfOrganizationBean);
+
+
+    void delOrganization(Integer id);
+
+
+    void updAudit(WjfAuditBean wjfAuditBean);
+
+
+    Boolean shenhe(Integer id, Integer audit);
 
 }

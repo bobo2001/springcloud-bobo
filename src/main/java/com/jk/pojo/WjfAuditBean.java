@@ -1,8 +1,6 @@
 package com.jk.pojo;
 
-import lombok.Data;
 
-@Data
 public class WjfAuditBean {
 
     private Integer id;
@@ -27,4 +25,91 @@ public class WjfAuditBean {
 
     private String audit;//审核
 
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public Integer getCharge() {
+        return charge;
+    }
+
+    public void setCharge(Integer charge) {
+        this.charge = charge;
+    }
+
+    public Integer getPrice() {
+        return price;
+    }
+
+    public void setPrice(Integer price) {
+        this.price = price;
+    }
+
+    public Integer getStandordown() {
+        return standordown;
+    }
+
+    public void setStandordown(Integer standordown) {
+        this.standordown = standordown;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+
+    public Integer getSort() {
+        return sort;
+    }
+
+    public void setSort(Integer sort) {
+        this.sort = sort;
+    }
+
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
+    }
+
+    public String getDetail() {
+        return detail;
+    }
+
+    public void setDetail(String detail) {
+        this.detail = detail;
+    }
+
+    public String getAudit() {
+        return audit;
+    }
+
+    public void setAudit(String audit) {
+        this.audit = audit;
+    }
 }

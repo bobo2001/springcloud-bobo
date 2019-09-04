@@ -1,10 +1,7 @@
 package com.jk.controller;
 
 
-import com.jk.pojo.WjfAuditBean;
-import com.jk.pojo.WjfCourseBean;
-import com.jk.pojo.WjfPersonalDetailsBean;
-import com.jk.pojo.WjfTree;
+import com.jk.pojo.*;
 import com.jk.service.EducationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -39,6 +36,13 @@ public class EducationController {
     @ResponseBody
     public WjfCourseBean findCourseById(Integer id){
         return educationService.findCourseById(id);
+    }
+
+    //审核回显
+    @RequestMapping("findAuditById")
+    @ResponseBody
+    public WjfAuditBean findAuditById(Integer id){
+        return educationService.findAuditById(id);
     }
 
     //修改课程
@@ -87,6 +91,72 @@ public class EducationController {
     public WjfPersonalDetailsBean lingke(Integer id){
         return educationService.lingke(id);
     }
+
+    //机构
+    @RequestMapping("findOrganization")
+    @ResponseBody
+    public List<WjfOrganizationBean> findOrganization(){
+        return educationService.findOrganization();
+    }
+
+    // 机构  新增  修改
+    @RequestMapping("saveOrganization")
+    @ResponseBody
+    public Boolean saveOrganization(WjfOrganizationBean wjfOrganizationBean){
+        try {
+            if(wjfOrganizationBean.getId() != null){
+                educationService.updOrganization(wjfOrganizationBean);
+            }else{
+                educationService.saveOrganization(wjfOrganizationBean);
+            }
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    //机构回显
+    @RequestMapping("findOrganizationById")
+    @ResponseBody
+    public WjfOrganizationBean findOrganizationById(Integer id){
+        return educationService.findOrganizationById(id);
+    }
+
+    //删除机构
+    @RequestMapping("delOrganization")
+    @ResponseBody
+    public Boolean delOrganization(Integer id){
+        try {
+            educationService.delOrganization(id);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    //修改审核
+    @RequestMapping("updAudit")
+    @ResponseBody
+    public Boolean updAudit(WjfAuditBean wjfAuditBean){
+        try {
+            educationService.updAudit(wjfAuditBean);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+
+    //修改审核状态
+    @RequestMapping("shenhe")
+    @ResponseBody
+    public Boolean shenhe(Integer id,Integer audit){
+        return educationService.shenhe(id,audit);
+    }
+
 
 
 

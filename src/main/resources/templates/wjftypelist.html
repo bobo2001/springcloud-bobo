@@ -8,13 +8,12 @@
     <link href="https://cdn.bootcss.com/bootstrap-table/1.11.1/bootstrap-table.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.bootcss.com/jquery-treegrid/0.2.0/css/jquery.treegrid.min.css">
 </head>
-</head>
 <body>
 <div class="container">
 
     <table id="table"></table>
     <br/>
-    <button onclick="test()">选择</button>
+   <!-- <button onclick="test()">选择</button>-->
 </div>
 </body>
 <script src="https://cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
@@ -64,7 +63,7 @@
                 // {field: 'pid', title: '所属上级'},
                 { field: 'status',  title: '状态', sortable: true,  align: 'center', formatter: 'statusFormatter'  },
                 { field: 'sort', title: '排序'  },
-                { field: 'operate', title: '操作', align: 'center', events : operateEvents, formatter: 'operateFormatter' },
+                //{ field: 'operate', title: '操作', align: 'center', events : operateEvents, formatter: 'operateFormatter' },
             ],
 
             // bootstrap-table-treegrid.js 插件配置 --  start
@@ -117,14 +116,14 @@
     }
 
     // 格式化按钮
-    function operateFormatter(value, row, index) {
+    /*function operateFormatter(value, row, index) {1
         return [
             '<button type="button" class="RoleOfadd btn-small  btn-primary" style="margin-right:15px;"><i class="fa fa-plus" ></i>&nbsp;新增</button>',
             '<button type="button" class="RoleOfedit btn-small   btn-primary" style="margin-right:15px;"><i class="fa fa-pencil-square-o" ></i>&nbsp;修改</button>',
             '<button type="button" class="RoleOfdelete btn-small   btn-primary" style="margin-right:15px;"><i class="fa fa-trash-o" ></i>&nbsp;删除</button>'
         ].join('');
 
-    }
+    }*/
     // 格式化类型
     function typeFormatter(value, row, index) {
         if (value === 'menu') {  return '菜单';  }
@@ -142,7 +141,7 @@
     }
 
     //初始化操作按钮的方法
-    window.operateEvents = {
+   /* window.operateEvents = {
         'click .RoleOfadd': function (e, value, row, index) {
             add(row.id);
         },
@@ -152,7 +151,7 @@
         'click .RoleOfedit': function (e, value, row, index) {
             update(row.id);
         }
-    };
+    };*/
 </script>
 <script>
     /**
@@ -180,7 +179,7 @@
         }
     }
 
-    function test() {
+   /* function test() {
         var selRows = $table.bootstrapTable("getSelections");
         if(selRows.length == 0){
             alert("请至少选择一行");
@@ -196,7 +195,7 @@
         });
         alert("你选中行的 id 为："+postData);
 
-    }
+    }*/
 
     function add(id) {
         alert("add 方法 , id = " + id);

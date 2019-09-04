@@ -1,10 +1,7 @@
 package com.jk.service;
 
 import com.jk.dao.EducationDao;
-import com.jk.pojo.WjfAuditBean;
-import com.jk.pojo.WjfCourseBean;
-import com.jk.pojo.WjfPersonalDetailsBean;
-import com.jk.pojo.WjfTree;
+import com.jk.pojo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -50,6 +47,47 @@ public class EducationServiceImpl implements EducationService{
     @Override
     public WjfPersonalDetailsBean lingke(Integer id) {
         return educationDao.lingke(id);
+    }
+
+    @Override
+    public List<WjfOrganizationBean> findOrganization() {
+        return educationDao.findOrganization();
+    }
+
+    @Override
+    public Boolean saveOrganization(WjfOrganizationBean wjfOrganizationBean) {
+        return educationDao.saveOrganization(wjfOrganizationBean);
+    }
+
+    @Override
+    public WjfAuditBean findAuditById(Integer id) {
+        return educationDao.findAuditById(id);
+    }
+
+    @Override
+    public WjfOrganizationBean findOrganizationById(Integer id) {
+        return educationDao.findOrganizationById(id);
+    }
+
+    @Override
+    public void updOrganization(WjfOrganizationBean wjfOrganizationBean) {
+        educationDao.updOrganization(wjfOrganizationBean);
+    }
+
+    @Override
+    public void delOrganization(Integer id) {
+        educationDao.delOrganization(id);
+    }
+
+    @Override
+    public void updAudit(WjfAuditBean wjfAuditBean) {
+        educationDao.updAudit(wjfAuditBean);
+    }
+
+
+    @Override
+    public Boolean shenhe(Integer id, Integer audit) {
+        return educationDao.updAudit1(id,audit);
     }
 
 
