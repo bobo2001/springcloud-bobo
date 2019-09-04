@@ -44,7 +44,7 @@ public interface  ZhuanQuDao {
     List<LianJieBean> findLianJieList();
     @Update("update sh_lianjie set name=#{name},paixu=#{paixu},status=#{status},url=#{url} where id=#{id}")
     void updateLianJie(LianJieBean lianJieBean);
-    @Insert("insert into sh_lianjie (name,paixu,status,url) values(#{name},#{paixu},#{status}#{url})")
+    @Insert("insert into sh_lianjie (name,paixu,status,url) values(#{name},#{paixu},#{status},#{url})")
     void saveLianJieshow(LianJieBean lianJieBean);
     @Select("select * from sh_lianjie where id=#{value}")
     LianJieBean EditLianJieById(String id);
