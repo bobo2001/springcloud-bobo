@@ -52,4 +52,10 @@ public interface  ZhuanQuDao {
     void delLianJieByIds(Integer[] ids);
     @Select("select * from sh_tuijian")
     List<TuiJianBean> findTuiJianList();
+    @Update("update sh_toubu set name=#{name},paixu=#{paixu},status=#{status},fangshi=#{fangshi} where id=#{id}")
+    void updateTouBu(TouBuBean touBuBean);
+    @Insert("insert into sh_toubu (name,paixu,status,fangshi) values(#{name},#{paixu},#{status}#{fangshi})")
+    void saveTouBu(TouBuBean touBuBean);
+    @Select("select * from sh_toubu where id=#{value}")
+    TouBuBean EditTouBuById(String id);
 }

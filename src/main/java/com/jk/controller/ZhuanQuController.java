@@ -81,7 +81,7 @@ public class ZhuanQuController {
     public String ToTouBuhowList(){
         return "TouBuhowList";
     }
-    //专区删除    delTouBuByIds
+    //头部删除    delTouBuByIds
     @RequestMapping("delTouBuByIds")
     @ResponseBody
     public Boolean delTouBuByIds(Integer[] ids){
@@ -92,6 +92,32 @@ public class ZhuanQuController {
             e.printStackTrace();
             return false;
         }
+    }
+    //跳转头部新增
+    @RequestMapping("toAddTouBu")
+    public String toAddTouBu(){
+        return "AddTouBu";
+    }
+    //头部新增 saveDiBu
+    @RequestMapping("saveTouBu")
+    @ResponseBody
+    public  Boolean saveTouBu(TouBuBean touBuBean){
+        try {
+            if(touBuBean.getId() != null){
+                zhuanQuService.updateTouBu(touBuBean);
+            }else{
+                zhuanQuService.saveTouBu(touBuBean);
+            }
+            return true;
+        }catch (Exception e){
+            return false;
+        }
+    }
+    //头部回显 EditTouBuById
+    @RequestMapping("EditTouBuById")
+    @ResponseBody
+    public TouBuBean  EditTouBuById(String  id){
+        return zhuanQuService.EditTouBuById(id);
     }
 
 

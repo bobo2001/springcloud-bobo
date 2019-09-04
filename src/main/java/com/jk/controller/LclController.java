@@ -24,12 +24,12 @@ public class LclController {
     private LclService       lclService;
     @RequestMapping("findOrder")
     @ResponseBody
-
+    //订单分页查询
     public HashMap<String, Object> findOrder(LclOrderBean lclOrderBean, Integer  page, Integer rows){
 
         return  lclService.findOrder(page,rows,lclOrderBean);
     }
-
+    //poi导出
     @RequestMapping("downloadAllClassmate")
     @ResponseBody
     public void downloadAllClassmate(HttpServletResponse response, LclOrderBean lclOrderBean) throws Exception {
@@ -104,7 +104,7 @@ public class LclController {
         }
         FileOutputStream fileOut = null;
         try {
-            fileOut = new FileOutputStream("E:\\dingdan2.xls");
+            fileOut = new FileOutputStream("D:\\dingdandedaochu.xls");
             wb.write(fileOut);
             //fileOut.close();
             System.out.print("OK");
@@ -120,7 +120,36 @@ public class LclController {
                 }
             }
         }
-    }}
+    }
+    //订单跳转路径
+    @RequestMapping("ToAddOrderList")
+   public String ToAddOrderList(){
+        return "AddOrderList";
+    }
+    //订单信息新增
+    @RequestMapping("saveOrder")
+    @ResponseBody
+    public Boolean saveOrder(LclOrderBean lclOrderBean){
+        try{
+            if (lclOrderBean.getId() !=null){
+                lclService.updateOrder(lclOrderBean);
+            }else{
+                lclService.saveOrder(lclOrderBean);
+            }
+            return true;
+        }catch (Exception e){
+            return false;
+        }
+
+    }
+    //订单回显
+    @RequestMapping("findOrderById")
+    @ResponseBody
+    public LclOrderBean findOrderById(String id){
+        return lclService.findOrderById(id);
+    }
+
+}
 
 
 

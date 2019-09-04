@@ -109,4 +109,19 @@ public class ZhuanQuServiceImpl implements ZhuanQuService{
     public List<TuiJianBean> findTuiJianList() {
         return zhuanQuDao.findTuiJianList();
     }
+
+    @Override
+    public void updateTouBu(TouBuBean touBuBean) {
+        zhuanQuDao.updateTouBu(touBuBean);
+    }
+
+    @Override
+    public void saveTouBu(TouBuBean touBuBean) {
+        zhuanQuDao.saveTouBu(touBuBean);
+    }
+
+    @Override
+    public TouBuBean EditTouBuById(String id) {
+        return zhuanQuDao.EditTouBuById(id);
+    }
 }

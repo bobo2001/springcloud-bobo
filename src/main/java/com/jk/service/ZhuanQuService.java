@@ -44,4 +44,10 @@ public interface ZhuanQuService {
     void delLianJieByIds(Integer[] ids);
 
     List<TuiJianBean> findTuiJianList();
+
+    void updateTouBu(TouBuBean touBuBean);
+
+    void saveTouBu(TouBuBean touBuBean);
+
+    TouBuBean EditTouBuById(String id);
 }

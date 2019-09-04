@@ -23,14 +23,14 @@
 </head>
 <body>
 <div id="toolbar">
-    <form class="form-inline">
+    <!--<form class="form-inline">
         <div class="form-group">
             <label for="name">分类名称</label>
             <input type="text" class="form-control"id="name" placeholder="请输入名称">
         </div>
         <button type="button" onclick="searchUser()" class="btn btn-success glyphicon glyphicon-search">搜索🔍</button>
         <button type="button" onclick="clearss()" class="btn btn-warning ">清空查询</button>
-    </form>
+    </form>-->
 </div>
 <table id="TuiJianTable"></table>
 </body>
@@ -76,13 +76,13 @@
                         stu = "正常";
                     }
                     if(row.status == 0){
-                        stu = "异常";
+                        stu = "<font color='#00bfff'>异常</font>";
                     }
                     return stu;
                 }},
             {field:'1sd3',title:'操作',formatter:function(value,row,index){
                     /* return '<a href="javascript:delDiBu('+row.id+')">删除</a>  |  <a href="javascript:update('+row.id+')">修改</a>';*/
-                    return '<button type="button" class="btn btn-success"  onclick="updpasw('+row.id+')" class="btn btn-info">推荐课程</button>';
+                  /*  return '<button type="button" class="btn btn-success"  onclick="updpasw('+row.id+')" class="btn btn-info">推荐课程</button>';*/
                 }}
 
         ]

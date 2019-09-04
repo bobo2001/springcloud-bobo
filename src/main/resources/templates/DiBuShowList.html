@@ -23,16 +23,16 @@
 </head>
 <body>
 <div id="toolbar">
-    <form class="form-inline">
+    <!--<form class="form-inline">
         <div class="form-group">
             <label for="name">底部名称</label>
             <input type="text" class="form-control"id="name" placeholder="请输入名称">
         </div>
         <button type="button" onclick="searchUser()" class="btn btn-success glyphicon glyphicon-search">搜索🔍</button>
         <button type="button" onclick="clearss()" class="btn btn-warning ">清空查询</button>
-    </form>
+    </form>-->
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-danger" onclick="delDiBu()">删除</button>
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button type="button" onclick="openAddUser()" class="btn btn-info glyphicon glyphicon-plus">新增</button>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--<button type="button" onclick="openAddUser()" class="btn btn-info glyphicon glyphicon-plus">新增</button>-->
 </div>
 <table id="DiBuTable"></table>
 </body>
@@ -66,7 +66,7 @@
                         $.ajax({
                             url:'/zhuanqu/saveDiBu',
                             type:'post',
-                            data:$("#myForm").serialize(),
+                            data:$("#dibuForm").serialize(),
                             success:function(data){
                                 //刷新表格
                                 //$('#myTable').bootstrapTable('refresh');
@@ -126,16 +126,16 @@
                         stu = "正常";
                     }
                     if(row.status == 0){
-                        stu = "异常";
+                        stu = "<font color='#00bfff'>异常</font>";
                     }
                     return stu;
                 }},
             {field:'1sd3',title:'操作',formatter:function(value,row,index){
                    /* return '<a href="javascript:delDiBu('+row.id+')">删除</a>  |  <a href="javascript:update('+row.id+')">修改</a>';*/
-                   return '<button type="button" class="btn btn-success" onclick="editUser('+row.id+')" class="btn btn-info">修改</button>' +
-                        '<button type="button" class="btn btn-danger" onclick="delDiBu('+row.id+')" class="btn btn-info">删除</button>' +
-                        '<button type="button" class="btn btn-warning" onclick="updrole('+row.id+')" class="btn btn-info">禁用</button>' +
-                        '<button type="button" class="btn btn-success"  onclick="updpasw('+row.id+')" class="btn btn-info">专区课程</button>';
+                   /*'<button type="button" class="btn btn-success" onclick="editUser('+row.id+')" class="btn btn-info">修改</button>' +*/
+                    return    '<button type="button" class="btn btn-danger" onclick="delDiBu('+row.id+')" class="btn btn-info">删除</button>';
+                       /* '<button type="button" class="btn btn-warning" onclick="updrole('+row.id+')" class="btn btn-info">禁用</button>' +
+                        '<button type="button" class="btn btn-success"  onclick="updpasw('+row.id+')" class="btn btn-info">专区课程</button>';*/
                 }}
 
         ]
@@ -221,10 +221,10 @@
                         $.ajax({
                             url:'/saveZhuanQu',
                             type:'post',
-                            data:$("#myForm").serialize(),
+                            data:$("#dibuForm").serialize(),
                             success:function(data){
                                 //刷新表格
-                                $('#OrderTable').bootstrapTable('refresh');
+                                $('#DiBuTable').bootstrapTable('refresh');
                                 // searchUser();
                             }
                         });
